@@ -78,30 +78,24 @@ public class MatchDAO {
                     }
                 }
 
-                System.out.println("Enter Team A ID (Leave blank to keep current): ");
-                String teamAInput = sc.nextLine();
-                teamA_ID = teamAInput.isEmpty() ? getTeamAID(matchID) : Integer.parseInt(teamAInput);
+                System.out.println("Enter Team 1 ID: ");
+                teamA_ID = sc.nextInt();
+                System.out.println("Enter Team 2 ID: ");
+                teamB_ID = sc.nextInt();
+                System.out.println("Enter Winner ID: ");
+                winner_ID = sc.nextInt();
+                sc.nextLine(); // Consume newline
 
-                System.out.println("Enter Team B ID (Leave blank to keep current): ");
-                String teamBInput = sc.nextLine();
-                teamB_ID = teamBInput.isEmpty() ? getTeamBID(matchID) : Integer.parseInt(teamBInput);
-
-                System.out.println("Enter Winner ID (Leave blank to keep current): ");
-                String winnerInput = sc.nextLine();
-                winner_ID = winnerInput.isEmpty() ? getWinnerID(matchID) : Integer.parseInt(winnerInput);
-
-                System.out.println("Enter Map ID (Leave blank to keep current): ");
-                mapID = sc.nextLine();
-                mapID = mapID.isEmpty() ? getMapID(matchID) : mapID;
-
-                System.out.println("Enter Match Date (yyyy-mm-dd) (Leave blank to keep current): ");
+                System.out.println("Enter Map Name: ");
+                mapID = sc.nextInt();
+                System.out.println("Enter Match Date (YYYY-MM-DD): ");
                 String dateInput = sc.nextLine();
                 matchDate = dateInput.isEmpty() ? getMatchDate(matchID) : Date.valueOf(dateInput);
 
                 stmt.setInt(1, teamA_ID);
                 stmt.setInt(2, teamB_ID);
                 stmt.setInt(3, winner_ID);
-                stmt.setString(4, mapID.isEmpty() ? getmapID(matchID) : mapID);
+                stmt.setInt(4, mapID);
                 stmt.setDate(5, matchDate);
                 stmt.setInt(6, matchID);
                 stmt.executeUpdate();
@@ -135,11 +129,6 @@ public class MatchDAO {
                 stmt.executeUpdate();
             }
         }
-    }
-
-    // Helper methods to fetch individual attributes
-    private String getmapID(int matchID) throws SQLException {
-        return fetchSingleValue(matchID, "mapID");
     }
 
     private Date getMatchDate(int matchID) throws SQLException {

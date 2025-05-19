@@ -59,7 +59,7 @@ public class MatchStatsDAO {
     // UPDATE
     public void updateMatchStat() throws SQLException {
         try (dbconnect db = new dbconnect(); Scanner sc = new Scanner(System.in)) {
-            String query = "UPDATE match_stats SET matchID = ?, playerID = ?, agent = ?, kills = ?, deaths = ?, assists = ? WHERE statID = ?";
+            String query = "UPDATE match_stats SET matchID = ?, playerID = ?, kills = ?, deaths = ?, assists = ? WHERE statID = ?";
             try (PreparedStatement stmt = db.conn.prepareStatement(query)) {
                 System.out.println("Enter statID: ");
                 statID = sc.nextInt();
@@ -70,8 +70,8 @@ public class MatchStatsDAO {
                     try (ResultSet rs = rstmt.executeQuery()) {
                         if (rs.next()) {
                             System.out.println(rs.getInt("statID") + " | " + rs.getInt("matchID") + " | " +
-                                    rs.getInt("playerID") + " | " + rs.getString("agent") + " | " +
-                                    rs.getInt("kills") + " | " + rs.getInt("deaths") + " | " + rs.getInt("assists"));
+                                    rs.getInt("playerID") + " | " + rs.getInt("kills") + " | " + 
+                                    rs.getInt("deaths") + " | " + rs.getInt("assists"));
                         } else {
                             System.out.println("No match stat record found with this statID.");
                             return;
