@@ -143,18 +143,6 @@ public class MatchDAO {
         return null;
     }
 
-    private String fetchSingleValue(int matchID, String column) throws SQLException {
-        try (dbconnect db = new dbconnect(); PreparedStatement stmt = db.conn.prepareStatement("SELECT " + column + " FROM matches WHERE matchID = ?")) {
-            stmt.setInt(1, matchID);
-            try (ResultSet rs = stmt.executeQuery()) {
-                if (rs.next()) {
-                    return rs.getString(column);
-                }
-            }
-        }
-        return "";
-    }
-
     public static class Match {
         private int matchID, teamA_ID, teamB_ID, winner_ID;
         private String mapID;
