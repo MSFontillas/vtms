@@ -9,7 +9,7 @@ public class TeamDAO {
 
     // CREATE
     public void addTeam() throws SQLException {
-        try (dbConnect db = new dbConnect(); Scanner sc = new Scanner(System.in)) {
+        try (dbconnect db = new dbconnect(); Scanner sc = new Scanner(System.in)) {
             String query = "INSERT INTO teams (teamName, coach, region) VALUES (?, ?, ?)";
             try (PreparedStatement stmt = db.conn.prepareStatement(query)) {
                 System.out.println("Enter team name: ");
@@ -34,7 +34,7 @@ public class TeamDAO {
 
     // READ
     public List<Team> getAllTeams() throws SQLException {
-        try (dbConnect db = new dbConnect()) {
+        try (dbconnect db = new dbconnect()) {
             List<Team> teams = new ArrayList<>();
             String query = "SELECT * FROM teams";
             try (Statement stmt = db.conn.createStatement(); ResultSet rs = stmt.executeQuery(query)) {
@@ -48,7 +48,7 @@ public class TeamDAO {
 
     // UPDATE
     public void updateTeam() throws SQLException {
-        try (dbConnect db = new dbConnect(); Scanner sc = new Scanner(System.in)) {
+        try (dbconnect db = new dbconnect(); Scanner sc = new Scanner(System.in)) {
             String query = "UPDATE teams SET teamName = ?, coach = ?, region = ? WHERE teamID = ?";
             try (PreparedStatement stmt = db.conn.prepareStatement(query)) {
                 System.out.println("Enter teamID: ");
@@ -101,7 +101,7 @@ public class TeamDAO {
 
     // DELETE
     public void deleteTeam() throws SQLException {
-        try (dbConnect db = new dbConnect(); Scanner sc = new Scanner(System.in)) {
+        try (dbconnect db = new dbconnect(); Scanner sc = new Scanner(System.in)) {
             String query = "DELETE FROM teams WHERE teamID = ?";
             try (PreparedStatement stmt = db.conn.prepareStatement(query)) {
                 System.out.println("Enter teamID: ");
@@ -127,7 +127,7 @@ public class TeamDAO {
     }
 
     private String getTeamName(int teamID) throws SQLException {
-        try (dbConnect db = new dbConnect(); PreparedStatement stmt = db.conn.prepareStatement("SELECT teamName FROM teams WHERE teamID =?")) {
+        try (dbconnect db = new dbconnect(); PreparedStatement stmt = db.conn.prepareStatement("SELECT teamName FROM teams WHERE teamID =?")) {
             stmt.setInt(1, teamID);
             try (ResultSet rs = stmt.executeQuery()) {
                 if (rs.next()) {
@@ -139,7 +139,7 @@ public class TeamDAO {
     }
 
     private String getCoach(int teamID) throws SQLException {
-        try (dbConnect db = new dbConnect(); PreparedStatement stmt = db.conn.prepareStatement("SELECT coach FROM teams WHERE teamID =?")) {
+        try (dbconnect db = new dbconnect(); PreparedStatement stmt = db.conn.prepareStatement("SELECT coach FROM teams WHERE teamID =?")) {
             stmt.setInt(1, teamID);
             try (ResultSet rs = stmt.executeQuery()) {
                 if (rs.next()) {
@@ -151,7 +151,7 @@ public class TeamDAO {
     }
 
     private String getRegion(int teamID) throws SQLException {
-        try (dbConnect db = new dbConnect(); PreparedStatement stmt = db.conn.prepareStatement("SELECT region FROM teams WHERE teamID =?")) {
+        try (dbconnect db = new dbconnect(); PreparedStatement stmt = db.conn.prepareStatement("SELECT region FROM teams WHERE teamID =?")) {
             stmt.setInt(1, teamID);
             try (ResultSet rs = stmt.executeQuery()) {
                 if (rs.next()) {
@@ -190,4 +190,3 @@ public class TeamDAO {
         }
     }
 }
-```
