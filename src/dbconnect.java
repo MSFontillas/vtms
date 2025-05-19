@@ -1,5 +1,4 @@
 import java.sql.*;
-public class dbconnect {
 
 	public Connection conn;
 	
