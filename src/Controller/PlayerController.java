@@ -1,0 +1,83 @@
+// Controller/PlayerController.java
+package Controller;
+
+import Model.Player;
+import Model.PlayerDAO;
+import View.PlayerView;
+
+import java.sql.SQLException;
+import java.util.List;
+
+public class PlayerController {
+    private PlayerDAO playerDAO;
+    private PlayerView playerView;
+
+    public PlayerController(PlayerDAO playerDAO, PlayerView playerView) {
+        this.playerDAO = playerDAO;
+        this.playerView = playerView;
+    }
+
+    public void processUserChoice(int choice) {
+        try {
+            switch (choice) {
+                case 1:
+                    addPlayer();
+                    break;
+                case 2:
+                    showAllPlayers();
+                    break;
+                case 3:
+                    updatePlayer();
+                    break;
+                case 4:
+                    deletePlayer();
+                    break;
+                case 5:
+                    return;
+                default:
+                    playerView.displayMessage("Invalid option.");
+            }
+        } catch (SQLException e) {
+            playerView.displayMessage("Operation failed: " + e.getMessage());
+        }
+    }
+
+    private void addPlayer() throws SQLException {
+        Player player = playerView.getPlayerInput();
+        playerDAO.addPlayer(player);
+        playerView.displayMessage("Player added successfully!");
+    }
+
+    private void showAllPlayers() throws SQLException {
+        List<Player> players = playerDAO.getAllPlayers();
+        playerView.displayPlayers(players);
+    }
+
+    private void updatePlayer() throws SQLException {
+        int playerId = playerView.getPlayerId();
+        Player existingPlayer = playerDAO.getPlayerById(playerId);
+
+        if (existingPlayer == null) {
+            playerView.displayMessage("Player not found!");
+            return;
+        }
+
+        Player updatedPlayer = playerView.getPlayerInput();
+        updatedPlayer.setPlayerID(playerId);
+        playerDAO.updatePlayer(updatedPlayer);
+        playerView.displayMessage("Player updated successfully!");
+    }
+
+    private void deletePlayer() throws SQLException {
+        int playerId = playerView.getPlayerId();
+        Player existingPlayer = playerDAO.getPlayerById(playerId);
+
+        if (existingPlayer == null) {
+            playerView.displayMessage("Player not found!");
+            return;
+        }
+
+        playerDAO.deletePlayer(playerId);
+        playerView.displayMessage("Player deleted successfully!");
+    }
+}

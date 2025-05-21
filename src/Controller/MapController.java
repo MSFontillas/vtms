@@ -1,0 +1,82 @@
+package Controller;// Controller/MapController.java
+
+import Model.Map;
+import Model.MapDAO;
+import View.MapView;
+
+import java.sql.SQLException;
+import java.util.List;
+
+public class MapController {
+    private MapDAO mapDAO;
+    private MapView mapView;
+
+    public MapController(MapDAO mapDAO, MapView mapView) {
+        this.mapDAO = mapDAO;
+        this.mapView = mapView;
+    }
+
+    public void processUserChoice(int choice) {
+        try {
+            switch (choice) {
+                case 1:
+                    addMap();
+                    break;
+                case 2:
+                    showAllMaps();
+                    break;
+                case 3:
+                    updateMap();
+                    break;
+                case 4:
+                    deleteMap();
+                    break;
+                case 5:
+                    return;
+                default:
+                    mapView.displayMessage("Invalid option.");
+            }
+        } catch (SQLException e) {
+            mapView.displayMessage("Operation failed: " + e.getMessage());
+        }
+    }
+
+    private void addMap() throws SQLException {
+        Map map = mapView.getMapInput();
+        mapDAO.addMap(map);
+        mapView.displayMessage("Map added successfully!");
+    }
+
+    private void showAllMaps() throws SQLException {
+        List<Map> maps = mapDAO.getAllMaps();
+        mapView.displayMaps(maps);
+    }
+
+    private void updateMap() throws SQLException {
+        int mapId = mapView.getMapId();
+        Map existingMap = mapDAO.getMapById(mapId);
+
+        if (existingMap == null) {
+            mapView.displayMessage("Map not found!");
+            return;
+        }
+
+        Map updatedMap = mapView.getMapInput();
+        updatedMap.setMapID(mapId);
+        mapDAO.updateMap(updatedMap);
+        mapView.displayMessage("Map updated successfully!");
+    }
+
+    private void deleteMap() throws SQLException {
+        int mapId = mapView.getMapId();
+        Map existingMap = mapDAO.getMapById(mapId);
+
+        if (existingMap == null) {
+            mapView.displayMessage("Map not found!");
+            return;
+        }
+
+        mapDAO.deleteMap(mapId);
+        mapView.displayMessage("Map deleted successfully!");
+    }
+}
