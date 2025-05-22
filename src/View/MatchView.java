@@ -3,6 +3,7 @@ package View;
 
 import Model.Match;
 import java.sql.Date;
+import java.sql.Time;
 import java.util.List;
 import java.util.Scanner;
 
@@ -23,27 +24,29 @@ public class MatchView {
         System.out.print("Choose an option: ");
     }
 
-    public Match getMatchInput() {
-        Match match = new Match();
+public Match getMatchInput() {
+    System.out.println("Enter Team A ID: ");
+    int teamAId = scanner.nextInt();
 
-        System.out.println("Enter Team 1 ID: ");
-        match.setTeamA_ID(scanner.nextInt());
+    System.out.println("Enter Team B ID: ");
+    int teamBId = scanner.nextInt();
 
-        System.out.println("Enter Team 2 ID: ");
-        match.setTeamB_ID(scanner.nextInt());
+    System.out.println("Enter Winner ID: ");
+    int winnerId = scanner.nextInt();
 
-        System.out.println("Enter Winner ID: ");
-        match.setWinner_ID(scanner.nextInt());
+    System.out.println("Enter Map ID: ");
+    int mapId = scanner.nextInt();
 
-        System.out.println("Enter Map ID: ");
-        match.setMapID(scanner.nextInt());
-        scanner.nextLine(); // Consume newline
+    System.out.println("Enter Match Date (YYYY-MM-DD): ");
+    String dateStr = scanner.next();
+    Date matchDate = Date.valueOf(dateStr);
 
-        System.out.println("Enter Match Date (YYYY-MM-DD): ");
-        match.setMatchDate(Date.valueOf(scanner.nextLine()));
+    System.out.println("Enter Match Time (HH:MM:SS): ");
+    String timeStr = scanner.next();
+    Time matchTime = Time.valueOf(timeStr);
 
-        return match;
-    }
+    return new Match(teamAId, teamBId, winnerId, mapId, matchDate, matchTime);
+}
 
     public int getMatchId() {
         System.out.println("Enter matchID: ");

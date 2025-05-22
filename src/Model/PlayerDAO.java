@@ -4,6 +4,8 @@ package Model;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.HashMap;
 
 public class PlayerDAO {
     public void addPlayer(Player player) throws SQLException {
@@ -82,5 +84,50 @@ public class PlayerDAO {
             }
         }
         return null;
+    }
+
+    public Map<String, Object> getPlayerStatistics(int playerID) throws SQLException {
+        Map<String, Object> statistics = new HashMap<>();
+        
+        try (dbconnect db = new dbconnect()) {
+            // Call stored procedure
+            String query = "{CALL GetPlayerStatistics(?)}";
+            try (CallableStatement stmt = db.conn.prepareCall(query)) {
+                stmt.setInt(1, playerID);
+                boolean hasResults = stmt.execute();
+                
+                // Process basic info
+                if (hasResults) {
+                    try (ResultSet rs = stmt.getResultSet()) {
+                        if (rs.next()) {
+                            statistics.put("playerName", rs.getString("playerName"));
+                            statistics.put("ign", rs.getString("ign"));
+                            statistics.put("role", rs.getString("Role"));
+                            statistics.put("teamName", rs.getString("teamName"));
+                            statistics.put("kdaRatio", rs.getDouble("kda_ratio"));
+                        }
+                    }
+                    
+                    // Get the next result set (match history)
+                    if (stmt.getMoreResults()) {
+                        List<Map<String, Object>> matchHistory = new ArrayList<>();
+                        try (ResultSet rs = stmt.getResultSet()) {
+                            while (rs.next()) {
+                                Map<String, Object> match = new HashMap<>();
+                                match.put("matchID", rs.getInt("matchID"));
+                                match.put("date", rs.getDate("Date"));
+                                match.put("kills", rs.getInt("kills"));
+                                match.put("deaths", rs.getInt("deaths"));
+                                match.put("assists", rs.getInt("assists"));
+                                match.put("mvp", rs.getBoolean("mvp"));
+                                matchHistory.add(match);
+                            }
+                        }
+                        statistics.put("matchHistory", matchHistory);
+                    }
+                }
+            }
+        }
+        return statistics;
     }
 }

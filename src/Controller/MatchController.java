@@ -7,6 +7,7 @@ import View.MatchView;
 
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Scanner;
 
 public class MatchController {
     private MatchDAO matchDAO;
@@ -17,25 +18,28 @@ public class MatchController {
         this.matchView = matchView;
     }
 
-    public void processUserChoice(int choice) {
+    public void processUserChoice(Scanner sc) {
         try {
-            switch (choice) {
-                case 1:
-                    addMatch();
-                    break;
-                case 2:
-                    showAllMatches();
-                    break;
-                case 3:
-                    updateMatch();
-                    break;
-                case 4:
-                    deleteMatch();
-                    break;
-                case 5:
-                    return;
-                default:
-                    matchView.displayMessage("Invalid option.");
+            while (true) {
+                matchView.displayMenu();
+                switch (sc.nextInt()) {
+                    case 1:
+                        addMatch();
+                        break;
+                    case 2:
+                        showAllMatches();
+                        break;
+                    case 3:
+                        updateMatch();
+                        break;
+                    case 4:
+                        deleteMatch();
+                        break;
+                    case 5:
+                        return;
+                    default:
+                        matchView.displayMessage("Invalid option.");
+                }
             }
         } catch (SQLException e) {
             matchView.displayMessage("Operation failed: " + e.getMessage());

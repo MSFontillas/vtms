@@ -27,6 +27,11 @@ public class App {
         MatchController matchController = new MatchController(matchDAO, matchView);
         MatchStatsController matchStatsController = new MatchStatsController(matchStatsDAO, matchStatsView);
 
+        // After other DAO initializations:
+        ReportsDAO reportsDAO = new ReportsDAO();
+        ReportsView reportsView = new ReportsView();
+        ReportsController reportsController = new ReportsController(reportsDAO, reportsView);
+
         Scanner sc = new Scanner(System.in);
         int choice;
 
@@ -37,33 +42,32 @@ public class App {
             System.out.println("3. Manage Maps");
             System.out.println("4. Manage Matches");
             System.out.println("5. Manage Match Stats");
-            System.out.println("6. Exit");
+            System.out.println("6. View Reports");
+            System.out.println("7. Exit");
             System.out.print("Select an option: ");
 
             choice = sc.nextInt();
 
             switch (choice) {
                 case 1:
-                    teamView.displayMenu();
-                    teamController.processUserChoice(sc.nextInt());
+                    teamController.processUserChoice(sc);
                     break;
                 case 2:
-                    playerView.displayMenu();
-                    playerController.processUserChoice(sc.nextInt());
+                    playerController.processUserChoice(sc);
                     break;
                 case 3:
-                    mapView.displayMenu();
-                    mapController.processUserChoice(sc.nextInt());
+                    mapController.processUserChoice(sc);
                     break;
                 case 4:
-                    matchView.displayMenu();
-                    matchController.processUserChoice(sc.nextInt());
+                    matchController.processUserChoice(sc);
                     break;
                 case 5:
-                    matchStatsView.displayMenu();
-                    matchStatsController.processUserChoice(sc.nextInt());
+                    matchStatsController.processUserChoice(sc);
                     break;
                 case 6:
+                    reportsController.processUserChoice(sc);
+                    break;
+                case 7:
                     System.out.println("Exiting...");
                     sc.close();
                     return;

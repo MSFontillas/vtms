@@ -7,6 +7,7 @@ import View.TeamView;
 
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Scanner;
 
 public class TeamController {
     private TeamDAO teamDAO;
@@ -17,25 +18,28 @@ public class TeamController {
         this.teamView = teamView;
     }
 
-    public void processUserChoice(int choice) {
+    public void processUserChoice(Scanner sc) {
         try {
-            switch (choice) {
-                case 1:
-                    addTeam();
-                    break;
-                case 2:
-                    showAllTeams();
-                    break;
-                case 3:
-                    updateTeam();
-                    break;
-                case 4:
-                    deleteTeam();
-                    break;
-                case 5:
-                    return;
-                default:
-                    teamView.displayMessage("Invalid option.");
+            while(true) {
+                teamView.displayMenu();
+                switch (sc.nextInt()) {
+                    case 1:
+                        addTeam();
+                        break;
+                    case 2:
+                        showAllTeams();
+                        break;
+                    case 3:
+                        updateTeam();
+                        break;
+                    case 4:
+                        deleteTeam();
+                        break;
+                    case 5:
+                        return;
+                    default:
+                        teamView.displayMessage("Invalid option.");
+                }
             }
         } catch (SQLException e) {
             teamView.displayMessage("Operation failed: " + e.getMessage());

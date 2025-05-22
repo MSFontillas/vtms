@@ -27,9 +27,4 @@ public class dbconnect implements AutoCloseable {
             conn.close();
         }
     }
-
-    public static void main(String[] args) throws SQLException {
-        try (dbconnect db = new dbconnect()) {
-        }
-    }
 }

@@ -1,7 +1,7 @@
-// Model/Match.java
 package Model;
 
 import java.sql.Date;
+import java.sql.Time;
 
 public class Match {
     private int matchID;
@@ -10,20 +10,30 @@ public class Match {
     private int winner_ID;
     private int mapID;
     private Date matchDate;
+    private Time matchTime;
 
-    public Match(int matchID, int teamA_ID, int teamB_ID, int winner_ID, int mapID, Date matchDate) {
+    // Constructor for creating a new match
+    public Match(int teamA_ID, int teamB_ID, int winner_ID, int mapID, Date matchDate, Time matchTime) {
+        this.teamA_ID = teamA_ID;
+        this.teamB_ID = teamB_ID;
+        this.winner_ID = winner_ID;
+        this.mapID = mapID;
+        this.matchDate = matchDate;
+        this.matchTime = matchTime;
+    }
+
+    // Constructor for an existing match
+    public Match(int matchID, int teamA_ID, int teamB_ID, int winner_ID, int mapID, Date matchDate, Time matchTime) {
         this.matchID = matchID;
         this.teamA_ID = teamA_ID;
         this.teamB_ID = teamB_ID;
         this.winner_ID = winner_ID;
         this.mapID = mapID;
         this.matchDate = matchDate;
+        this.matchTime = matchTime;
     }
 
-    // Default constructor
-    public Match() {}
-
-    // Getters and Setters
+    // Getters and setters
     public int getMatchID() { return matchID; }
     public void setMatchID(int matchID) { this.matchID = matchID; }
 
@@ -41,4 +51,7 @@ public class Match {
 
     public Date getMatchDate() { return matchDate; }
     public void setMatchDate(Date matchDate) { this.matchDate = matchDate; }
+
+    public Time getMatchTime() { return matchTime; }
+    public void setMatchTime(Time matchTime) { this.matchTime = matchTime; }
 }

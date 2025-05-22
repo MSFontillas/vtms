@@ -4,6 +4,7 @@ import Model.Player;
 // View/PlayerView.java
 import java.util.List;
 import java.util.Scanner;
+import java.util.Map;
 
 public class PlayerView {
     private Scanner scanner;
@@ -18,7 +19,8 @@ public class PlayerView {
         System.out.println("2. View All Players");
         System.out.println("3. Update Player");
         System.out.println("4. Delete Player");
-        System.out.println("5. Back");
+        System.out.println("5. View Player Statistics");
+        System.out.println("6. Back");
         System.out.print("Choose an option: ");
     }
 
@@ -64,5 +66,35 @@ public class PlayerView {
 
     public void displayMessage(String message) {
         System.out.println(message);
+    }
+
+    public void displayPlayerStatistics(Map<String, Object> statistics) {
+        System.out.println("\n=== Player Statistics ===");
+        System.out.println("Player Name: " + statistics.get("playerName"));
+        System.out.println("IGN: " + statistics.get("ign"));
+        System.out.println("Role: " + statistics.get("role"));
+        System.out.println("Team: " + statistics.get("teamName"));
+        System.out.println("KDA Ratio: " + statistics.get("kdaRatio"));
+        
+        System.out.println("\n--- Match History ---");
+        @SuppressWarnings("unchecked")
+        List<Map<String, Object>> matchHistory = (List<Map<String, Object>>) statistics.get("matchHistory");
+        if (matchHistory != null && !matchHistory.isEmpty()) {
+            System.out.printf("%-8s | %-12s | %-6s | %-7s | %-8s | %-4s\n",
+                "Match ID", "Date", "Kills", "Deaths", "Assists", "MVP");
+            System.out.println("-".repeat(55));
+            
+            for (Map<String, Object> match : matchHistory) {
+                System.out.printf("%-8s | %-12s | %-6s | %-7s | %-8s | %-4s\n",
+                    match.get("matchID"),
+                    match.get("date"),
+                    match.get("kills"),
+                    match.get("deaths"),
+                    match.get("assists"),
+                    (boolean) match.get("mvp") ? "Yes" : "No");
+            }
+        } else {
+            System.out.println("No match history found.");
+        }
     }
 }

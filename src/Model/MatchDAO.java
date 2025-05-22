@@ -8,13 +8,14 @@ import java.util.List;
 public class MatchDAO {
     public void addMatch(Match match) throws SQLException {
         try (dbconnect db = new dbconnect()) {
-            String query = "INSERT INTO matches (teamA_ID, teamB_ID, winner_ID, mapID, matchDate) VALUES (?, ?, ?, ?, ?)";
+            String query = "INSERT INTO matches (teamA_ID, teamB_ID, winner_ID, mapID, Date, Time) VALUES (?, ?, ?, ?, ?, ?)";
             try (PreparedStatement stmt = db.conn.prepareStatement(query)) {
                 stmt.setInt(1, match.getTeamA_ID());
                 stmt.setInt(2, match.getTeamB_ID());
                 stmt.setInt(3, match.getWinner_ID());
                 stmt.setInt(4, match.getMapID());
                 stmt.setDate(5, match.getMatchDate());
+                stmt.setTime(6, match.getMatchTime());
                 stmt.executeUpdate();
             }
         }
@@ -33,7 +34,8 @@ public class MatchDAO {
                             rs.getInt("teamB_ID"),
                             rs.getInt("winner_ID"),
                             rs.getInt("mapID"),
-                            rs.getDate("matchDate")
+                            rs.getDate("Date"),
+                            rs.getTime("Time")
                     ));
                 }
             }
@@ -43,14 +45,15 @@ public class MatchDAO {
 
     public void updateMatch(Match match) throws SQLException {
         try (dbconnect db = new dbconnect()) {
-            String query = "UPDATE matches SET teamA_ID = ?, teamB_ID = ?, winner_ID = ?, mapID = ?, matchDate = ? WHERE matchID = ?";
+            String query = "UPDATE matches SET teamA_ID = ?, teamB_ID = ?, winner_ID = ?, mapID = ?, Date = ?, Time = ? WHERE matchID = ?";
             try (PreparedStatement stmt = db.conn.prepareStatement(query)) {
                 stmt.setInt(1, match.getTeamA_ID());
                 stmt.setInt(2, match.getTeamB_ID());
                 stmt.setInt(3, match.getWinner_ID());
                 stmt.setInt(4, match.getMapID());
                 stmt.setDate(5, match.getMatchDate());
-                stmt.setInt(6, match.getMatchID());
+                stmt.setTime(6, match.getMatchTime());
+                stmt.setInt(7, match.getMatchID());
                 stmt.executeUpdate();
             }
         }
@@ -79,7 +82,8 @@ public class MatchDAO {
                                 rs.getInt("teamB_ID"),
                                 rs.getInt("winner_ID"),
                                 rs.getInt("mapID"),
-                                rs.getDate("matchDate")
+                                rs.getDate("Date"),
+                                rs.getTime("Time")
                         );
                     }
                 }

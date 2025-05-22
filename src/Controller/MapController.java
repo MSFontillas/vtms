@@ -6,6 +6,7 @@ import View.MapView;
 
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Scanner;
 
 public class MapController {
     private MapDAO mapDAO;
@@ -16,25 +17,28 @@ public class MapController {
         this.mapView = mapView;
     }
 
-    public void processUserChoice(int choice) {
+    public void processUserChoice(Scanner sc) {
         try {
-            switch (choice) {
-                case 1:
-                    addMap();
-                    break;
-                case 2:
-                    showAllMaps();
-                    break;
-                case 3:
-                    updateMap();
-                    break;
-                case 4:
-                    deleteMap();
-                    break;
-                case 5:
-                    return;
-                default:
-                    mapView.displayMessage("Invalid option.");
+            while (true) {
+                mapView.displayMenu();
+                switch (sc.nextInt()) {
+                    case 1:
+                        addMap();
+                        break;
+                    case 2:
+                        showAllMaps();
+                        break;
+                    case 3:
+                        updateMap();
+                        break;
+                    case 4:
+                        deleteMap();
+                        break;
+                    case 5:
+                        return;
+                    default:
+                        mapView.displayMessage("Invalid option.");
+                }
             }
         } catch (SQLException e) {
             mapView.displayMessage("Operation failed: " + e.getMessage());
