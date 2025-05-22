@@ -1,9 +1,9 @@
 // Controller/PlayerController.java
-package Controller;
+package controller;
 
-import Model.Player;
-import Model.PlayerDAO;
-import View.PlayerView;
+import model.Player;
+import model.PlayerDAO;
+import view.PlayerView;
 
 import java.sql.SQLException;
 import java.util.List;

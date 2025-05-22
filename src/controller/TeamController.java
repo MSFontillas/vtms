@@ -1,9 +1,9 @@
-package Controller;
+package controller;
 
 // Controller/TeamController.java
-import Model.TeamDAO;
-import Model.Team;
-import View.TeamView;
+import model.TeamDAO;
+import model.Team;
+import view.TeamView;
 
 import java.sql.SQLException;
 import java.util.List;

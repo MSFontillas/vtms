@@ -1,6 +1,6 @@
-package View;// View/MapView.java
+package view;// View/MapView.java
 
-import Model.Map;
+import model.Map;
 
 import java.util.List;
 import java.util.Scanner;

@@ -1,5 +1,5 @@
 // Model/Team.java
-package Model;
+package model;
 
 public class Team {
     private int teamID;

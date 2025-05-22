@@ -1,8 +1,8 @@
-package Controller;// Controller/MapController.java
+package controller;// Controller/MapController.java
 
-import Model.Map;
-import Model.MapDAO;
-import View.MapView;
+import model.Map;
+import model.MapDAO;
+import view.MapView;
 
 import java.sql.SQLException;
 import java.util.List;

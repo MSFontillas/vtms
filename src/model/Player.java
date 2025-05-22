@@ -1,4 +1,4 @@
-package Model;
+package model;
 
 // Model/Player.java
 public class Player {

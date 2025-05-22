@@ -1,5 +1,5 @@
 // Model/MatchStats.java
-package Model;
+package model;
 
 public class MatchStats {
     private int statID;

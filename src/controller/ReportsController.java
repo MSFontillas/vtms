@@ -1,7 +1,7 @@
-package Controller;
+package controller;
 
-import Model.ReportsDAO;
-import View.ReportsView;
+import model.ReportsDAO;
+import view.ReportsView;
 import java.sql.SQLException;
 import java.util.Scanner;
 

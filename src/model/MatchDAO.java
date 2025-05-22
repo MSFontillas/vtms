@@ -1,5 +1,5 @@
 // Model/MatchDAO.java
-package Model;
+package model;
 
 import java.sql.*;
 import java.util.ArrayList;

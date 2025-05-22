@@ -1,5 +1,5 @@
-package View;
-import Model.Team;
+package view;
+import model.Team;
 
 import java.util.List;
 import java.util.Scanner;

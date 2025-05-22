@@ -1,5 +1,5 @@
-package View;
-import Model.Player;
+package view;
+import model.Player;
 
 // View/PlayerView.java
 import java.util.List;

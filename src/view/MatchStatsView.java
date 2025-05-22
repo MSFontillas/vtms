@@ -1,7 +1,7 @@
 // View/MatchStatsView.java
-package View;
+package view;
 
-import Model.MatchStats;
+import model.MatchStats;
 
 import java.util.List;
 import java.util.Scanner;

@@ -123,7 +123,7 @@ INSERT INTO Match_Stats (StatID, MatchID, PlayerID, Kills, Deaths, Assists, MVP)
 (9, 1, 9, 13, 17, 8, 0),
 (10, 1, 10, 10, 16, 12, 0),
 
--- Match 2 (DRX vs LOUD)
+-- Match 2 (DRX vs. LOUD)
 (11, 2, 11, 18, 14, 10, 0),
 (12, 2, 12, 24, 12, 6, 1),  -- Rb MVP
 (13, 2, 13, 16, 15, 9, 0),

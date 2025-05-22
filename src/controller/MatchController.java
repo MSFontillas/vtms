@@ -1,9 +1,9 @@
 // Controller/MatchController.java
-package Controller;
+package controller;
 
-import Model.MatchDAO;
-import Model.Match;
-import View.MatchView;
+import model.MatchDAO;
+import model.Match;
+import view.MatchView;
 
 import java.sql.SQLException;
 import java.util.List;

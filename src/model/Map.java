@@ -1,5 +1,5 @@
 // Model/Map.java
-package Model;
+package model;
 
 public class Map {
     private int mapID;

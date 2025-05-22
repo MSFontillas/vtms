@@ -1,5 +1,5 @@
 // View/ReportsView.java
-package View;
+package view;
 
 import java.util.List;
 import java.util.Map;

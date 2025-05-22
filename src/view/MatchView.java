@@ -1,7 +1,7 @@
 // View/MatchView.java
-package View;
+package view;
 
-import Model.Match;
+import model.Match;
 import java.sql.Date;
 import java.sql.Time;
 import java.util.List;
