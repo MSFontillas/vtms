@@ -1,6 +1,6 @@
-import controller.*;
-import view.*;
-import model.*;
+import main.java.controller.*;
+import main.java.view.*;
+import main.java.model.*;
 
 import java.util.Scanner;
 

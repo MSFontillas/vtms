@@ -1,7 +1,8 @@
--- Valorant Tournament Management System - Sample Data Insert Script
+-- Valorant Tournament Management System - Complete Data Insert Script
 
 USE ValorantTournamentDB;
 
+-- Teams (already complete with 15 teams)
 INSERT INTO Teams (TeamID, TeamName, Coach, Region) VALUES
 (1, 'Sentinels', 'Kaplan', 'North America'),
 (2, 'Fnatic', 'Mini', 'EMEA'),
@@ -19,53 +20,114 @@ INSERT INTO Teams (TeamID, TeamName, Coach, Region) VALUES
 (14, 'Team Heretics', 'loWel', 'EMEA'),
 (15, 'Rex Regum Qeon', 'Eeyore', 'Asia Pacific');
 
+-- Players (75 players - 5 for each of 15 teams)
 INSERT INTO Players (PlayerID, PlayerName, IGN, Role, TeamID) VALUES
--- Sentinels
+-- Sentinels (1)
 (1, 'Tyson Ngo', 'TenZ', 'Duelist', 1),
 (2, 'Shahzeb Khan', 'ShahZaM', 'Initiator', 1),
 (3, 'Michael Gulino', 'dapr', 'Controller', 1),
 (4, 'Hunter Mims', 'SicK', 'Flex', 1),
 (5, 'Jared Gitlin', 'zombs', 'Controller', 1),
 
--- Fnatic
+-- Fnatic (2)
 (6, 'Jake Howlett', 'Boaster', 'Initiator', 2),
 (7, 'Nikita Sirmitev', 'Derke', 'Duelist', 2),
 (8, 'James Orfila', 'Mistic', 'Controller', 2),
 (9, 'Dimitri De Natale', 'Dimasick', 'Flex', 2),
 (10, 'Marcel Neumann', 'MAGNUM', 'Sentinel', 2),
 
--- DRX
+-- DRX (3)
 (11, 'Kim Gu-taek', 'stax', 'Initiator', 3),
 (12, 'Goo Sang-min', 'Rb', 'Duelist', 3),
 (13, 'Yu Byung-chul', 'Zest', 'Flex', 3),
 (14, 'Kim Myeong-kwan', 'Mako', 'Controller', 3),
 (15, 'Jung Ji-won', 'BuZz', 'Sentinel', 3),
 
--- ... (continuing for all 15 teams with 5 players each)
--- Sample for 3 more teams:
-
--- LOUD
+-- LOUD (4)
 (16, 'Erick Santos', 'aspas', 'Duelist', 4),
 (17, 'Matias Delipetro', 'Saadhak', 'Initiator', 4),
 (18, 'Bryan Luna', 'cauanzin', 'Flex', 4),
 (19, 'Gabriel Lima', 'qck', 'Controller', 4),
 (20, 'Arthur Santos', 'tuyz', 'Sentinel', 4),
 
--- Paper Rex
+-- Paper Rex (5)
 (21, 'Aaron Leonhart', 'mindfreak', 'Initiator', 5),
 (22, 'Jason Susanto', 'f0rsakeN', 'Duelist', 5),
 (23, 'Khalish Rusyaidee', 'd4v41', 'Flex', 5),
 (24, 'Wang Jing Jie', 'Jinggg', 'Controller', 5),
 (25, 'Benedict Tan', 'Benkai', 'Sentinel', 5),
 
--- Team Liquid
+-- Team Liquid (6)
 (26, 'Adil Benrlitom', 'ScreaM', 'Duelist', 6),
 (27, 'Elias Olkkonen', 'Jamppi', 'Flex', 6),
 (28, 'Travis Mendoza', 'L1NK', 'Initiator', 6),
 (29, 'Domagoj Fancev', 'Doma', 'Controller', 6),
-(30, 'Enzo Mestari', 'Enzo', 'Sentinel', 6);
--- ... (would continue similarly for remaining teams)
+(30, 'Enzo Mestari', 'Enzo', 'Sentinel', 6),
 
+-- Optic Gaming (7)
+(31, 'Jaccob Whiteaker', 'yay', 'Duelist', 7),
+(32, 'Pujan Mehta', 'FNS', 'Initiator', 7),
+(33, 'Austin Roberts', 'crashies', 'Flex', 7),
+(34, 'Victor Wong', 'Victor', 'Controller', 7),
+(35, 'Jimmy Nguyen', 'Marved', 'Sentinel', 7),
+
+-- EDward Gaming (8)
+(36, 'Zheng Yongkang', 'ZmjjKK', 'Duelist', 8),
+(37, 'Wan Jing', 'CHICHOO', 'Initiator', 8),
+(38, 'Zhang Shuo', 'Smoggy', 'Flex', 8),
+(39, 'Wang Sen', 'nobody', 'Controller', 8),
+(40, 'Haodong Guo', 'Haodong', 'Sentinel', 8),
+
+-- ZETA DIVISION (9)
+(41, 'Koji Naka', 'Laz', 'Duelist', 9),
+(42, 'Tomoaki Maruoka', 'crow', 'Initiator', 9),
+(43, 'Shota Watanabe', 'SugarZ3ro', 'Flex', 9),
+(44, 'Yuma Nishimoto', 'Dep', 'Controller', 9),
+(45, 'Tenta Asai', 'TENNN', 'Sentinel', 9),
+
+-- KRÜ Esports (10)
+(46, 'Angelo Mori', 'keznit', 'Duelist', 10),
+(47, 'Juan Lopez', 'NagZ', 'Initiator', 10),
+(48, 'Santiago Galvis', 'DaveeyS', 'Flex', 10),
+(49, 'Nicolas Ferrari', 'Klaus', 'Controller', 10),
+(50, 'Roberto Planas', 'Melser', 'Sentinel', 10),
+
+-- FURIA (11)
+(51, 'Leonardo Serrati', 'mwzera', 'Duelist', 11),
+(52, 'Gabriel Lima', 'qck', 'Initiator', 11),
+(53, 'Matheus Tarasconi', 'mazin', 'Flex', 11),
+(54, 'Douglas Vieira', 'dgzin', 'Controller', 11),
+(55, 'Khalil Schmidt', 'khalil', 'Sentinel', 11),
+
+-- 100 Thieves (12)
+(56, 'Peter Gurney', 'Asuna', 'Duelist', 12),
+(57, 'Sean Tai', 'bang', 'Initiator', 12),
+(58, 'Joshua Nissan', 'steel', 'Flex', 12),
+(59, 'Derrek Ha', 'Derrek', 'Controller', 12),
+(60, 'Nicholas Nisa', 'nitr0', 'Sentinel', 12),
+
+-- T1 (13)
+(61, 'Son Seon-ho', 'xeta', 'Duelist', 13),
+(62, 'Byeon Sang-beom', 'Munchkin', 'Initiator', 13),
+(63, 'Joseph Seungmin', 'ban', 'Flex', 13),
+(64, 'Kevin Champagne', 'xccurate', 'Controller', 13),
+(65, 'Ha Jeong-woo', 'Sayaplayer', 'Sentinel', 13),
+
+-- Team Heretics (14)
+(66, 'Auni Chahade', 'AvovA', 'Duelist', 14),
+(67, 'Boris Pozgay', 'poiz', 'Initiator', 14),
+(68, 'Dominykas Lukaševičius', 'MiniBoo', 'Flex', 14),
+(69, 'Alejandro Masanet', 'koldamenta', 'Controller', 14),
+(70, 'Moe Rahman', 'Moe40', 'Sentinel', 14),
+
+-- Rex Regum Qeon (15)
+(71, 'Saibani Rabani', 'fl1pzjder', 'Duelist', 15),
+(72, 'Gary Susanto', 'blaZek1ng', 'Initiator', 15),
+(73, 'David Monroy', 'TEHLOOL', 'Flex', 15),
+(74, 'James Harse', 'Harse', 'Controller', 15),
+(75, 'Bryan Po', 'Akashi', 'Sentinel', 15);
+
+-- Maps (already complete with 10 maps)
 INSERT INTO Maps (MapID, MapName) VALUES
 (1, 'Ascent'),
 (2, 'Bind'),
@@ -78,8 +140,9 @@ INSERT INTO Maps (MapID, MapName) VALUES
 (9, 'Lotus'),
 (10, 'Sunset');
 
+-- Matches (30 matches)
 INSERT INTO Matches (MatchID, Date, Time, TeamA_ID, TeamB_ID, Winner_ID, MapID) VALUES
--- Group Stage
+-- Group Stage (Matches 1-20)
 (1, '2023-03-01', '15:00:00', 1, 2, 1, 1),
 (2, '2023-03-01', '18:00:00', 3, 4, 3, 2),
 (3, '2023-03-02', '15:00:00', 5, 6, 6, 3),
@@ -90,26 +153,30 @@ INSERT INTO Matches (MatchID, Date, Time, TeamA_ID, TeamB_ID, Winner_ID, MapID) 
 (8, '2023-03-04', '18:00:00', 15, 1, 1, 8),
 (9, '2023-03-05', '15:00:00', 2, 3, 3, 9),
 (10, '2023-03-05', '18:00:00', 4, 5, 4, 10),
+(11, '2023-03-06', '15:00:00', 6, 7, 6, 1),
+(12, '2023-03-06', '18:00:00', 8, 9, 8, 2),
+(13, '2023-03-07', '15:00:00', 10, 11, 10, 3),
+(14, '2023-03-07', '18:00:00', 12, 13, 12, 4),
+(15, '2023-03-08', '15:00:00', 14, 15, 14, 5),
+(16, '2023-03-08', '18:00:00', 1, 3, 1, 6),
+(17, '2023-03-09', '15:00:00', 2, 4, 4, 7),
+(18, '2023-03-09', '18:00:00', 5, 7, 5, 8),
+(19, '2023-03-10', '15:00:00', 6, 8, 6, 9),
+(20, '2023-03-10', '18:00:00', 9, 11, 9, 10),
 
--- Quarterfinals
-(11, '2023-03-08', '15:00:00', 1, 3, 1, 1),
-(12, '2023-03-08', '18:00:00', 6, 8, 6, 2),
-(13, '2023-03-09', '15:00:00', 9, 11, 9, 3),
-(14, '2023-03-09', '18:00:00', 14, 1, 1, 4),
+-- Playoffs (Matches 21-30)
+(21, '2023-03-11', '15:00:00', 1, 4, 1, 1),  -- Quarterfinal 1
+(22, '2023-03-11', '18:00:00', 3, 6, 3, 2),  -- Quarterfinal 2
+(23, '2023-03-12', '15:00:00', 8, 9, 8, 3),  -- Quarterfinal 3
+(24, '2023-03-12', '18:00:00', 12, 14, 14, 4),  -- Quarterfinal 4
+(25, '2023-03-13', '15:00:00', 1, 3, 1, 5),  -- Semifinal 1
+(26, '2023-03-13', '18:00:00', 8, 14, 8, 6),  -- Semifinal 2
+(27, '2023-03-14', '15:00:00', 4, 6, 4, 7),  -- 5th place match
+(28, '2023-03-14', '18:00:00', 9, 12, 9, 8),  -- 7th place match
+(29, '2023-03-15', '15:00:00', 3, 14, 3, 9),  -- 3rd place match
+(30, '2023-03-15', '20:00:00', 1, 8, 1, 10);  -- Grand Final
 
--- Semifinals
-(15, '2023-03-11', '15:00:00', 1, 6, 1, 5),
-(16, '2023-03-11', '18:00:00', 9, 1, 1, 6),
-
--- Finals
-(17, '2023-03-13', '20:00:00', 1, 1, 1, 7),
-
--- Additional matches to reach 30
-(18, '2023-03-14', '15:00:00', 2, 5, 2, 8),
-(19, '2023-03-14', '18:00:00', 3, 7, 3, 9),
--- ... (would continue with similar matchups)
-(30, '2023-03-20', '18:00:00', 10, 12, 12, 10);
-
+-- Match_Stats (300 rows - 10 players per match × 30 matches)
 INSERT INTO Match_Stats (StatID, MatchID, PlayerID, Kills, Deaths, Assists, MVP) VALUES
 -- Match 1 (Sentinels vs Fnatic)
 (1, 1, 1, 25, 12, 8, 1),  -- TenZ MVP
@@ -123,7 +190,7 @@ INSERT INTO Match_Stats (StatID, MatchID, PlayerID, Kills, Deaths, Assists, MVP)
 (9, 1, 9, 13, 17, 8, 0),
 (10, 1, 10, 10, 16, 12, 0),
 
--- Match 2 (DRX vs. LOUD)
+-- Match 2 (DRX vs LOUD)
 (11, 2, 11, 18, 14, 10, 0),
 (12, 2, 12, 24, 12, 6, 1),  -- Rb MVP
 (13, 2, 13, 16, 15, 9, 0),
@@ -133,6 +200,342 @@ INSERT INTO Match_Stats (StatID, MatchID, PlayerID, Kills, Deaths, Assists, MVP)
 (17, 2, 17, 18, 15, 8, 0),
 (18, 2, 18, 15, 18, 7, 0),
 (19, 2, 19, 13, 17, 10, 0),
-(20, 2, 20, 10, 16, 12, 0);
+(20, 2, 20, 10, 16, 12, 0),
 
--- ... (would continue similarly for all 30 matches with 10 players each = 300 rows)
+-- Match 3 (Paper Rex vs Team Liquid)
+(21, 3, 21, 17, 18, 9, 0),
+(22, 3, 22, 20, 16, 5, 0),
+(23, 3, 23, 15, 17, 10, 0),
+(24, 3, 24, 19, 15, 8, 0),
+(25, 3, 25, 12, 19, 12, 0),
+(26, 3, 26, 23, 14, 6, 1),  -- ScreaM MVP
+(27, 3, 27, 18, 16, 8, 0),
+(28, 3, 28, 16, 15, 10, 0),
+(29, 3, 29, 14, 17, 12, 0),
+(30, 3, 30, 11, 18, 14, 0),
+
+-- Match 4 (Optic Gaming vs EDward Gaming)
+(31, 4, 31, 21, 17, 7, 0),
+(32, 4, 32, 18, 16, 9, 0),
+(33, 4, 33, 16, 17, 10, 0),
+(34, 4, 34, 14, 18, 12, 0),
+(35, 4, 35, 12, 19, 13, 0),
+(36, 4, 36, 24, 14, 6, 1),  -- ZmjjKK MVP
+(37, 4, 37, 19, 16, 8, 0),
+(38, 4, 38, 17, 15, 9, 0),
+(39, 4, 39, 15, 17, 11, 0),
+(40, 4, 40, 13, 18, 12, 0),
+
+-- Match 5 (ZETA DIVISION vs KRÜ Esports)
+(41, 5, 41, 22, 15, 7, 1),  -- Laz MVP
+(42, 5, 42, 18, 16, 9, 0),
+(43, 5, 43, 16, 17, 10, 0),
+(44, 5, 44, 14, 18, 12, 0),
+(45, 5, 45, 12, 19, 13, 0),
+(46, 5, 46, 20, 17, 6, 0),
+(47, 5, 47, 17, 18, 8, 0),
+(48, 5, 48, 15, 19, 9, 0),
+(49, 5, 49, 13, 20, 11, 0),
+(50, 5, 50, 11, 21, 12, 0),
+
+-- Match 6 (FURIA vs 100 Thieves)
+(51, 6, 51, 23, 16, 7, 1),  -- mwzera MVP
+(52, 6, 52, 19, 17, 9, 0),
+(53, 6, 53, 17, 18, 10, 0),
+(54, 6, 54, 15, 19, 12, 0),
+(55, 6, 55, 13, 20, 13, 0),
+(56, 6, 56, 21, 18, 6, 0),
+(57, 6, 57, 18, 19, 8, 0),
+(58, 6, 58, 16, 20, 9, 0),
+(59, 6, 59, 14, 21, 11, 0),
+(60, 6, 60, 12, 22, 12, 0),
+
+-- Match 7 (T1 vs Team Heretics)
+(61, 7, 61, 19, 18, 8, 0),
+(62, 7, 62, 17, 19, 9, 0),
+(63, 7, 63, 15, 20, 10, 0),
+(64, 7, 64, 13, 21, 12, 0),
+(65, 7, 65, 11, 22, 13, 0),
+(66, 7, 66, 24, 15, 7, 1),  -- AvovA MVP
+(67, 7, 67, 20, 16, 8, 0),
+(68, 7, 68, 18, 17, 9, 0),
+(69, 7, 69, 16, 18, 10, 0),
+(70, 7, 70, 14, 19, 12, 0),
+
+-- Match 8 (Rex Regum Qeon vs Sentinels)
+(71, 8, 71, 18, 19, 8, 0),
+(72, 8, 72, 16, 20, 9, 0),
+(73, 8, 73, 14, 21, 10, 0),
+(74, 8, 74, 12, 22, 12, 0),
+(75, 8, 75, 10, 23, 13, 0),
+(76, 8, 1, 26, 14, 7, 1),  -- TenZ MVP
+(77, 8, 2, 21, 16, 9, 0),
+(78, 8, 3, 19, 17, 10, 0),
+(79, 8, 4, 17, 18, 11, 0),
+(80, 8, 5, 15, 19, 12, 0),
+
+-- Match 9 (Fnatic vs DRX)
+(81, 9, 6, 19, 18, 8, 0),
+(82, 9, 7, 17, 19, 9, 0),
+(83, 9, 8, 15, 20, 10, 0),
+(84, 9, 9, 13, 21, 12, 0),
+(85, 9, 10, 11, 22, 13, 0),
+(86, 9, 11, 23, 16, 7, 1),  -- stax MVP
+(87, 9, 12, 20, 17, 8, 0),
+(88, 9, 13, 18, 18, 9, 0),
+(89, 9, 14, 16, 19, 10, 0),
+(90, 9, 15, 14, 20, 12, 0),
+
+-- Match 10 (LOUD vs Paper Rex)
+(91, 10, 16, 24, 15, 7, 1),  -- aspas MVP
+(92, 10, 17, 20, 16, 8, 0),
+(93, 10, 18, 18, 17, 9, 0),
+(94, 10, 19, 16, 18, 10, 0),
+(95, 10, 20, 14, 19, 12, 0),
+(96, 10, 21, 19, 18, 8, 0),
+(97, 10, 22, 17, 19, 9, 0),
+(98, 10, 23, 15, 20, 10, 0),
+(99, 10, 24, 13, 21, 12, 0),
+(100, 10, 25, 11, 22, 13, 0),
+
+-- Continuing with similar patterns for matches 11-30 (200 more rows)
+-- Match 11 (Team Liquid vs Optic Gaming)
+(101, 11, 26, 22, 16, 8, 1),  -- ScreaM MVP
+(102, 11, 27, 19, 17, 9, 0),
+(103, 11, 28, 17, 18, 10, 0),
+(104, 11, 29, 15, 19, 12, 0),
+(105, 11, 30, 13, 20, 13, 0),
+(106, 11, 31, 20, 17, 7, 0),
+(107, 11, 32, 18, 18, 8, 0),
+(108, 11, 33, 16, 19, 9, 0),
+(109, 11, 34, 14, 20, 11, 0),
+(110, 11, 35, 12, 21, 12, 0),
+
+-- Match 12 (EDward Gaming vs ZETA DIVISION)
+(111, 12, 36, 23, 15, 7, 1),  -- ZmjjKK MVP
+(112, 12, 37, 20, 16, 8, 0),
+(113, 12, 38, 18, 17, 9, 0),
+(114, 12, 39, 16, 18, 10, 0),
+(115, 12, 40, 14, 19, 12, 0),
+(116, 12, 41, 19, 18, 8, 0),
+(117, 12, 42, 17, 19, 9, 0),
+(118, 12, 43, 15, 20, 10, 0),
+(119, 12, 44, 13, 21, 12, 0),
+(120, 12, 45, 11, 22, 13, 0),
+
+-- Match 13 (KRÜ Esports vs FURIA)
+(121, 13, 46, 21, 17, 7, 1),  -- keznit MVP
+(122, 13, 47, 19, 18, 8, 0),
+(123, 13, 48, 17, 19, 9, 0),
+(124, 13, 49, 15, 20, 11, 0),
+(125, 13, 50, 13, 21, 12, 0),
+(126, 13, 51, 20, 18, 7, 0),
+(127, 13, 52, 18, 19, 8, 0),
+(128, 13, 53, 16, 20, 9, 0),
+(129, 13, 54, 14, 21, 11, 0),
+(130, 13, 55, 12, 22, 12, 0),
+
+-- Match 14 (100 Thieves vs T1)
+(131, 14, 56, 22, 16, 8, 1),  -- Asuna MVP
+(132, 14, 57, 19, 17, 9, 0),
+(133, 14, 58, 17, 18, 10, 0),
+(134, 14, 59, 15, 19, 12, 0),
+(135, 14, 60, 13, 20, 13, 0),
+(136, 14, 61, 20, 17, 7, 0),
+(137, 14, 62, 18, 18, 8, 0),
+(138, 14, 63, 16, 19, 9, 0),
+(139, 14, 64, 14, 20, 11, 0),
+(140, 14, 65, 12, 21, 12, 0),
+
+-- Match 15 (Team Heretics vs Rex Regum Qeon)
+(141, 15, 66, 23, 15, 7, 1),  -- AvovA MVP
+(142, 15, 67, 20, 16, 8, 0),
+(143, 15, 68, 18, 17, 9, 0),
+(144, 15, 69, 16, 18, 10, 0),
+(145, 15, 70, 14, 19, 12, 0),
+(146, 15, 71, 19, 18, 8, 0),
+(147, 15, 72, 17, 19, 9, 0),
+(148, 15, 73, 15, 20, 10, 0),
+(149, 15, 74, 13, 21, 12, 0),
+(150, 15, 75, 11, 22, 13, 0),
+
+-- Match 16 (Sentinels vs DRX)
+(151, 16, 1, 24, 15, 7, 1),  -- TenZ MVP
+(152, 16, 2, 20, 16, 8, 0),
+(153, 16, 3, 18, 17, 9, 0),
+(154, 16, 4, 16, 18, 10, 0),
+(155, 16, 5, 14, 19, 12, 0),
+(156, 16, 11, 20, 17, 7, 0),
+(157, 16, 12, 18, 18, 8, 0),
+(158, 16, 13, 16, 19, 9, 0),
+(159, 16, 14, 14, 20, 11, 0),
+(160, 16, 15, 12, 21, 12, 0),
+
+-- Match 17 (Fnatic vs LOUD)
+(161, 17, 6, 19, 18, 8, 0),
+(162, 17, 7, 17, 19, 9, 0),
+(163, 17, 8, 15, 20, 10, 0),
+(164, 17, 9, 13, 21, 12, 0),
+(165, 17, 10, 11, 22, 13, 0),
+(166, 17, 16, 23, 16, 7, 1),  -- aspas MVP
+(167, 17, 17, 20, 17, 8, 0),
+(168, 17, 18, 18, 18, 9, 0),
+(169, 17, 19, 16, 19, 10, 0),
+(170, 17, 20, 14, 20, 12, 0),
+
+-- Match 18 (Paper Rex vs Optic Gaming)
+(171, 18, 21, 22, 16, 8, 1),  -- mindfreak MVP
+(172, 18, 22, 19, 17, 9, 0),
+(173, 18, 23, 17, 18, 10, 0),
+(174, 18, 24, 15, 19, 12, 0),
+(175, 18, 25, 13, 20, 13, 0),
+(176, 18, 31, 20, 17, 7, 0),
+(177, 18, 32, 18, 18, 8, 0),
+(178, 18, 33, 16, 19, 9, 0),
+(179, 18, 34, 14, 20, 11, 0),
+(180, 18, 35, 12, 21, 12, 0),
+
+-- Match 19 (Team Liquid vs EDward Gaming)
+(181, 19, 26, 21, 17, 7, 1),  -- ScreaM MVP
+(182, 19, 27, 19, 18, 8, 0),
+(183, 19, 28, 17, 19, 9, 0),
+(184, 19, 29, 15, 20, 11, 0),
+(185, 19, 30, 13, 21, 12, 0),
+(186, 19, 36, 20, 18, 7, 0),
+(187, 19, 37, 18, 19, 8, 0),
+(188, 19, 38, 16, 20, 9, 0),
+(189, 19, 39, 14, 21, 11, 0),
+(190, 19, 40, 12, 22, 12, 0),
+
+-- Match 20 (ZETA DIVISION vs FURIA)
+(191, 20, 41, 23, 16, 7, 1),  -- Laz MVP
+(192, 20, 42, 20, 17, 8, 0),
+(193, 20, 43, 18, 18, 9, 0),
+(194, 20, 44, 16, 19, 10, 0),
+(195, 20, 45, 14, 20, 12, 0),
+(196, 20, 51, 20, 18, 7, 0),
+(197, 20, 52, 18, 19, 8, 0),
+(198, 20, 53, 16, 20, 9, 0),
+(199, 20, 54, 14, 21, 11, 0),
+(200, 20, 55, 12, 22, 12, 0),
+
+-- Playoff Matches (21-30)
+-- Match 21 (Quarterfinal 1: Sentinels vs LOUD)
+(201, 21, 1, 25, 14, 8, 1),  -- TenZ MVP
+(202, 21, 2, 21, 15, 9, 0),
+(203, 21, 3, 19, 16, 10, 0),
+(204, 21, 4, 17, 17, 11, 0),
+(205, 21, 5, 15, 18, 12, 0),
+(206, 21, 16, 22, 16, 7, 0),
+(207, 21, 17, 20, 17, 8, 0),
+(208, 21, 18, 18, 18, 9, 0),
+(209, 21, 19, 16, 19, 10, 0),
+(210, 21, 20, 14, 20, 12, 0),
+
+-- Match 22 (Quarterfinal 2: DRX vs Team Liquid)
+(211, 22, 11, 23, 15, 7, 1),  -- stax MVP
+(212, 22, 12, 20, 16, 8, 0),
+(213, 22, 13, 18, 17, 9, 0),
+(214, 22, 14, 16, 18, 10, 0),
+(215, 22, 15, 14, 19, 12, 0),
+(216, 22, 26, 21, 17, 7, 0),
+(217, 22, 27, 19, 18, 8, 0),
+(218, 22, 28, 17, 19, 9, 0),
+(219, 22, 29, 15, 20, 11, 0),
+(220, 22, 30, 13, 21, 12, 0),
+
+    -- Match 23 (Quarterfinal 3: EDward Gaming vs ZETA DIVISION)
+ (221, 23, 36, 24, 15, 7, 1),  -- ZmjjKK MVP
+ (222, 23, 37, 21, 16, 8, 0),
+ (223, 23, 38, 19, 17, 9, 0),
+ (224, 23, 39, 17, 18, 10, 0),
+ (225, 23, 40, 15, 19, 12, 0),
+ (226, 23, 41, 22, 16, 7, 0),
+ (227, 23, 42, 20, 17, 8, 0),
+ (228, 23, 43, 18, 18, 9, 0),
+ (229, 23, 44, 16, 19, 10, 0),
+ (230, 23, 45, 14, 20, 12, 0),
+
+-- Match 24 (Quarterfinal 4: 100 Thieves vs Team Heretics)
+ (231, 24, 56, 20, 17, 8, 0),
+ (232, 24, 57, 18, 18, 9, 0),
+ (233, 24, 58, 16, 19, 10, 0),
+ (234, 24, 59, 14, 20, 12, 0),
+ (235, 24, 60, 12, 21, 13, 0),
+ (236, 24, 66, 25, 14, 7, 1),  -- AvovA MVP
+ (237, 24, 67, 22, 16, 8, 0),
+ (238, 24, 68, 20, 17, 9, 0),
+ (239, 24, 69, 18, 18, 10, 0),
+ (240, 24, 70, 16, 19, 12, 0),
+
+-- Match 25 (Semifinal 1: Sentinels vs DRX)
+ (241, 25, 1, 26, 13, 8, 1),  -- TenZ MVP
+ (242, 25, 2, 22, 15, 9, 0),
+ (243, 25, 3, 20, 16, 10, 0),
+ (244, 25, 4, 18, 17, 11, 0),
+ (245, 25, 5, 16, 18, 12, 0),
+ (246, 25, 11, 23, 16, 7, 0),
+ (247, 25, 12, 21, 17, 8, 0),
+ (248, 25, 13, 19, 18, 9, 0),
+ (249, 25, 14, 17, 19, 10, 0),
+ (250, 25, 15, 15, 20, 12, 0),
+
+-- Match 26 (Semifinal 2: EDward Gaming vs Team Heretics)
+ (251, 26, 36, 22, 16, 8, 0),
+ (252, 26, 37, 20, 17, 9, 0),
+ (253, 26, 38, 18, 18, 10, 0),
+ (254, 26, 39, 16, 19, 11, 0),
+ (255, 26, 40, 14, 20, 12, 0),
+ (256, 26, 66, 24, 15, 7, 1),  -- AvovA MVP
+ (257, 26, 67, 21, 16, 8, 0),
+ (258, 26, 68, 19, 17, 9, 0),
+ (259, 26, 69, 17, 18, 10, 0),
+ (260, 26, 70, 15, 19, 12, 0),
+
+-- Match 27 (5th place match: LOUD vs Team Liquid)
+ (261, 27, 16, 23, 15, 7, 1),  -- aspas MVP
+ (262, 27, 17, 20, 16, 8, 0),
+ (263, 27, 18, 18, 17, 9, 0),
+ (264, 27, 19, 16, 18, 10, 0),
+ (265, 27, 20, 14, 19, 12, 0),
+ (266, 27, 26, 21, 17, 7, 0),
+ (267, 27, 27, 19, 18, 8, 0),
+ (268, 27, 28, 17, 19, 9, 0),
+ (269, 27, 29, 15, 20, 11, 0),
+ (270, 27, 30, 13, 21, 12, 0),
+
+-- Match 28 (7th place match: ZETA DIVISION vs 100 Thieves)
+ (271, 28, 41, 22, 16, 8, 1),  -- Laz MVP
+ (272, 28, 42, 19, 17, 9, 0),
+ (273, 28, 43, 17, 18, 10, 0),
+ (274, 28, 44, 15, 19, 12, 0),
+ (275, 28, 45, 13, 20, 13, 0),
+ (276, 28, 56, 20, 17, 7, 0),
+ (277, 28, 57, 18, 18, 8, 0),
+ (278, 28, 58, 16, 19, 9, 0),
+ (279, 28, 59, 14, 20, 11, 0),
+ (280, 28, 60, 12, 21, 12, 0),
+
+-- Match 29 (3rd place match: DRX vs Team Heretics)
+ (281, 29, 11, 24, 14, 7, 1),  -- stax MVP
+ (282, 29, 12, 21, 15, 8, 0),
+ (283, 29, 13, 19, 16, 9, 0),
+ (284, 29, 14, 17, 17, 10, 0),
+ (285, 29, 15, 15, 18, 12, 0),
+ (286, 29, 66, 22, 16, 7, 0),
+ (287, 29, 67, 20, 17, 8, 0),
+ (288, 29, 68, 18, 18, 9, 0),
+ (289, 29, 69, 16, 19, 10, 0),
+ (290, 29, 70, 14, 20, 12, 0),
+
+-- Match 30 (Grand Final: Sentinels vs EDward Gaming)
+ (291, 30, 1, 27, 12, 8, 1),  -- TenZ MVP
+ (292, 30, 2, 23, 14, 9, 0),
+ (293, 30, 3, 21, 15, 10, 0),
+ (294, 30, 4, 19, 16, 11, 0),
+ (295, 30, 5, 17, 17, 12, 0),
+ (296, 30, 36, 22, 17, 7, 0),
+ (297, 30, 37, 20, 18, 8, 0),
+ (298, 30, 38, 18, 19, 9, 0),
+ (299, 30, 39, 16, 20, 11, 0),
+ (300, 30, 40, 14, 21, 12, 0);

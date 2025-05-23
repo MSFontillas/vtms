@@ -1,10 +1,23 @@
--- Valorant Tournament Management System - SQL Table Creation Scripts
-
 -- Database Creation
+DROP DATABASE IF EXISTS valorantTournamentDB;
 CREATE DATABASE IF NOT EXISTS valorantTournamentDB;
 USE valorantTournamentDB;
 
--- Dropping existing tables if they exist
+-- Drop Views
+DROP VIEW IF EXISTS team_performance_summary;
+DROP VIEW IF EXISTS player_analytics;
+DROP VIEW IF EXISTS map_statistics;
+
+-- Drop Stored Procedures and Functions
+DROP PROCEDURE IF EXISTS GetMatchStatistics;
+DROP PROCEDURE IF EXISTS GetPlayerStatistics;
+DROP FUNCTION IF EXISTS CalculatePlayerKDA;
+
+-- Drop Triggers
+DROP TRIGGER IF EXISTS after_match_update;
+
+-- Drop Tables (in correct order due to foreign key constraints)
+DROP TABLE IF EXISTS match_history_log;
 DROP TABLE IF EXISTS match_Stats;
 DROP TABLE IF EXISTS matches;
 DROP TABLE IF EXISTS maps;
