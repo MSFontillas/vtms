@@ -95,4 +95,42 @@ public class TeamDAO {
         throw new SQLException("Team not found: " + teamName);
     }
 
+    public List<Team> searchTeams(String name, String region, String coach) throws SQLException {
+        List<Team> teams = new ArrayList<>();
+        try (dbconnect db = new dbconnect()) {
+            StringBuilder query = new StringBuilder("SELECT * FROM teams WHERE 1=1");
+            List<Object> params = new ArrayList<>();
+        
+            if (!name.isEmpty()) {
+                query.append(" AND teamName LIKE ?");
+                params.add("%" + name + "%");
+            }
+            if (!region.isEmpty()) {
+                query.append(" AND region LIKE ?");
+                params.add("%" + region + "%");
+            }
+            if (!coach.isEmpty()) {
+                query.append(" AND coach LIKE ?");
+                params.add("%" + coach + "%");
+            }
+        
+            try (PreparedStatement stmt = db.conn.prepareStatement(query.toString())) {
+                for (int i = 0; i < params.size(); i++) {
+                    stmt.setObject(i + 1, params.get(i));
+                }
+            
+                try (ResultSet rs = stmt.executeQuery()) {
+                    while (rs.next()) {
+                        teams.add(new Team(
+                            rs.getInt("teamID"),
+                            rs.getString("teamName"),
+                            rs.getString("coach"),
+                            rs.getString("region")
+                        ));
+                    }
+                }
+            }
+        }
+        return teams;
+    }
 }

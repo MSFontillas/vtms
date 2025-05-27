@@ -5,37 +5,36 @@ import java.util.*;
 import java.util.Map;
 
 public class ReportsDAO {
-    
-    public Map<String, Object> getTeamPerformanceSummary(int teamId) throws SQLException {
-        Map<String, Object> summary = new HashMap<>();
+
+    public List<Map<String, Object>> getTeamPerformances() throws SQLException {
+        List<Map<String, Object>> performances = new ArrayList<>();
         try (dbconnect db = new dbconnect()) {
             String query = """
                 SELECT
                     t.teamName,
-                    COUNT(DISTINCT m.matchID) as total_matches,
-                    COUNT(DISTINCT CASE WHEN m.winner_ID = t.teamID THEN m.matchID END) as matches_won,
+                    COUNT(DISTINCT m.match_ID) as total_matches,
+                    COUNT(DISTINCT CASE WHEN m.winner_ID = t.teamID THEN m.match_ID END) as matches_won,
                     ROUND(AVG(ms.kills), 2) as avg_team_kills
                 FROM teams t
                 LEFT JOIN matches m ON t.teamID = m.teamA_ID OR t.teamID = m.teamB_ID
                 LEFT JOIN players p ON p.teamID = t.teamID
-                LEFT JOIN match_Stats ms ON m.matchID = ms.matchID AND ms.playerID = p.playerID
-                WHERE t.teamID = ?
+                LEFT JOIN match_Stats ms ON m.match_ID = ms.matchID AND ms.playerID = p.playerID
                 GROUP BY t.teamID, t.teamName
-            """;
-            
-            try (PreparedStatement stmt = db.conn.prepareStatement(query)) {
-                stmt.setInt(1, teamId);
-                try (ResultSet rs = stmt.executeQuery()) {
-                    if (rs.next()) {
-                        summary.put("teamName", rs.getString("teamName"));
-                        summary.put("totalMatches", rs.getInt("total_matches"));
-                        summary.put("matchesWon", rs.getInt("matches_won"));
-                        summary.put("avgTeamKills", rs.getDouble("avg_team_kills"));
-                    }
+                """;
+
+            try (Statement stmt = db.conn.createStatement();
+                 ResultSet rs = stmt.executeQuery(query)) {
+                while (rs.next()) {
+                    Map<String, Object> team = new HashMap<>();
+                    team.put("teamName", rs.getString("teamName"));
+                    team.put("totalMatches", rs.getInt("total_matches"));
+                    team.put("matchesWon", rs.getInt("matches_won"));
+                    team.put("avgTeamKills", rs.getDouble("avg_team_kills"));
+                    performances.add(team);
                 }
             }
         }
-        return summary;
+        return performances;
     }
 
     public List<Map<String, Object>> getPlayerAnalytics() throws SQLException {
@@ -84,14 +83,18 @@ public class ReportsDAO {
             String query = """
                 SELECT
                     m.mapName,
-                    COUNT(mt.matchID) as times_played,
-                    ROUND(AVG(ms.kills), 2) as avg_kills_per_match
+                    COUNT(DISTINCT mt.match_ID) as times_played,
+                    ROUND(AVG(match_kills), 2) as avg_kills_per_match
                 FROM maps m
-                LEFT JOIN matches mt ON m.mapID = mt.mapID
-                LEFT JOIN match_Stats ms ON mt.matchID = ms.matchID
+                LEFT JOIN matches mt ON m.mapID = mt.map_ID
+                LEFT JOIN (
+                    SELECT matchID, SUM(kills) as match_kills
+                    FROM match_Stats
+                    GROUP BY matchID
+                ) match_totals ON mt.match_ID = match_totals.matchID
                 GROUP BY m.mapID, m.mapName
             """;
-            
+        
             try (Statement stmt = db.conn.createStatement();
                  ResultSet rs = stmt.executeQuery(query)) {
                 while (rs.next()) {

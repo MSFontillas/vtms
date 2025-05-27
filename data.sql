@@ -141,7 +141,7 @@ INSERT INTO Maps (MapID, MapName) VALUES
 (10, 'Sunset');
 
 -- Matches (30 matches)
-INSERT INTO Matches (MatchID, Date, Time, TeamA_ID, TeamB_ID, Winner_ID, MapID) VALUES
+INSERT INTO Matches (match_ID, match_date, match_time, teamA_ID, teamB_ID, winner_ID, map_ID) VALUES
 -- Group Stage (Matches 1-20)
 (1, '2023-03-01', '15:00:00', 1, 2, 1, 1),
 (2, '2023-03-01', '18:00:00', 3, 4, 3, 2),

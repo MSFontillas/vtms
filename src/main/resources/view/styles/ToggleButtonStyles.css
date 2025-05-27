@@ -1,0 +1,37 @@
+/* Style for ToggleButton */
+.toggle-button {
+    -fx-background-color: #ff4654;
+    -fx-text-fill: white;
+    -fx-background-radius: 4px;
+    -fx-border-radius: 4px;
+    -fx-padding: 5px 10px;
+    -fx-font-weight: bold;
+    -fx-font-size: 20px;
+}
+
+/* Hover effect */
+.toggle-button:hover {
+    -fx-background-color: #ba3a46;
+    -fx-cursor: hand;
+}
+
+/* Pressed effect */
+.toggle-button:pressed {
+    -fx-background-color: #ff4654;
+}
+
+/* Selected state (when toggled on) */
+.toggle-button:selected {
+    -fx-background-color: #ba3a46;
+    -fx-text-fill: white;
+}
+
+/* Hover effect when selected */
+.toggle-button:selected:hover {
+    -fx-background-color: #ff4654;
+}
+
+/* Disabled state */
+.toggle-button:disabled {
+    -fx-opacity: 0.5;
+}

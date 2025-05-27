@@ -2,6 +2,7 @@ package main.java.controller;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -19,25 +20,20 @@ public class MatchStatsViewController implements Initializable {
 
     @FXML
     private TableColumn<MatchStats, Integer> statID;
-
     @FXML
     private TableColumn<MatchStats, Integer> matchID;
-
     @FXML
     private TableColumn<MatchStats, String> playerName;
-
     @FXML
-    private TableColumn<MatchStats, String> teamName;
-
+    private TableColumn<MatchStats, String> teamAName;  // Added
+    @FXML
+    private TableColumn<MatchStats, String> teamBName;  // Added
     @FXML
     private TableColumn<MatchStats, Integer> kills;
-
     @FXML
     private TableColumn<MatchStats, Integer> deaths;
-
     @FXML
     private TableColumn<MatchStats, Integer> assists;
-
     @FXML
     private TableColumn<MatchStats, Boolean> mvp;
 
@@ -46,11 +42,19 @@ public class MatchStatsViewController implements Initializable {
         statID.setCellValueFactory(new PropertyValueFactory<>("statID"));
         matchID.setCellValueFactory(new PropertyValueFactory<>("matchID"));
         playerName.setCellValueFactory(new PropertyValueFactory<>("playerName"));
-        teamName.setCellValueFactory(new PropertyValueFactory<>("teamName"));
+        teamAName.setCellValueFactory(new PropertyValueFactory<>("teamAName"));  // Added
+        teamBName.setCellValueFactory(new PropertyValueFactory<>("teamBName"));  // Added
         kills.setCellValueFactory(new PropertyValueFactory<>("kills"));
         deaths.setCellValueFactory(new PropertyValueFactory<>("deaths"));
         assists.setCellValueFactory(new PropertyValueFactory<>("assists"));
         mvp.setCellValueFactory(new PropertyValueFactory<>("mvp"));
+        mvp.setCellFactory(tc -> new TableCell<MatchStats, Boolean>() {
+            @Override
+            protected void updateItem(Boolean item, boolean empty) {
+                super.updateItem(item, empty);
+                setText(empty || item == null || !item ? "" : "MVP");
+            }
+        });
 
         loadMatchStats();
     }
@@ -62,5 +66,13 @@ public class MatchStatsViewController implements Initializable {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    public void loadMatchStatsData() {
+        loadMatchStats();
+    }
+
+    public TableView<MatchStats> getMatchStatsTable() {
+        return matchStatsTable;
     }
 }

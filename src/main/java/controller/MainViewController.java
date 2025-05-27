@@ -2,44 +2,80 @@ package main.java.controller;
 
 import javafx.fxml.*;
 import javafx.scene.Parent;
+import javafx.scene.control.Button;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 
 import java.io.IOException;
 
 public class MainViewController {
-
+    @FXML
+    private MapMenuController mapMenuController;
+    @FXML
+    private MapViewController mapViewController;
     @FXML
     private PlayerMenuController playerMenuController;
-
     @FXML
     private PlayerViewController playerViewController;
-
+    @FXML
+    private TeamMenuController teamMenuController;
+    @FXML
+    private TeamViewController teamViewController;
+    @FXML
+    private MatchMenuController matchMenuController;
+    @FXML
+    private MatchViewController matchViewController;
+    @FXML
+    private MatchStatsMenuController matchStatsMenuController;
+    @FXML
+    private MatchStatsViewController matchStatsViewController;
+    @FXML
+    private ReportsViewController reportsViewController;
     @FXML
     private AnchorPane ap, lowerap;
+    @FXML
+    private BorderPane bp;
+    @FXML
+    BorderPane innerbp;
 
     @FXML
-    private BorderPane bp, innerbp;
+    void home(MouseEvent event) {
+        setActiveButton((Button) event.getSource());
 
-    @FXML
-    void home() {
         innerbp.setCenter(ap);
         innerbp.setBottom(lowerap);
     }
 
     @FXML
-    void maps() {
+    void maps(MouseEvent event) {
+        setActiveButton((Button) event.getSource());
+
         loadPage("MapView");
         loadMenu("MapMenu");
+        if (mapMenuController != null) {
+            mapMenuController.setMapViewController(mapViewController);
+        } else {
+            throw new IllegalStateException("MapMenuController was not properly initialized. Check FXML file for correct fx:id");
+        }
     }
 
     @FXML
-    void matches() {
+    void matches(MouseEvent event) {
+        setActiveButton((Button) event.getSource());
+
         loadPage("MatchView");
         loadMenu("MatchMenu");
+        if (matchMenuController != null) {
+            matchMenuController.setMatchViewController(matchViewController);
+        } else {
+            throw new IllegalStateException("MatchMenuController was not properly initialized. Check FXML file for correct fx:id");
+        }
     }
 
     @FXML
-    void players() {
+    void players(MouseEvent event) {
+        setActiveButton((Button) event.getSource());
+
         loadPage("PlayerView");
         loadMenu("PlayerMenu");
         if (playerMenuController != null) {
@@ -50,27 +86,59 @@ public class MainViewController {
     }
 
     @FXML
-    void teams() {
+    void teams(MouseEvent event) {
+        setActiveButton((Button) event.getSource());
+
         loadPage("TeamView");
         loadMenu("TeamMenu");
+        if (teamMenuController != null) {
+            teamMenuController.setTeamViewController(teamViewController);
+        } else {
+            throw new IllegalStateException("TeamMenuController was not properly initialized. Check FXML file for correct fx:id");
+        }
     }
 
     @FXML
-    void match_stats() {
+    void match_stats(MouseEvent event) {
+        setActiveButton((Button) event.getSource());
+
         loadPage("MatchStatsView");
         loadMenu("MatchStatsMenu");
+        if (matchStatsMenuController != null) {
+            matchStatsMenuController.setMatchStatsViewController(matchStatsViewController);
+        } else {
+            throw new IllegalStateException("MatchStatsMenuController was not properly initialized. Check FXML file for correct fx:id");
+        }
     }
 
-    private void loadPage(String page) {
+    @FXML
+    void reports(MouseEvent event) {
+        setActiveButton((Button) event.getSource());
+
+        loadPage("ReportsView");
+        innerbp.setBottom(null);
+        bp.setBottom(null);
+        if (reportsViewController != null) {
+            reportsViewController.loadAllData();
+        } else {
+            throw new IllegalStateException("ReportsViewController was not properly initialized");
+        }
+    }
+
+    public void loadPage(String page) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/main/resources/view/" + page + ".fxml"));
             Parent root = loader.load();
             innerbp.setCenter(root);
             bp.setCenter(innerbp);
             
-            // Store controller reference if it's the PlayerView
-            if (page.equals("PlayerView")) {
-                playerViewController = loader.getController();
+            switch (page) {
+                case "PlayerView" -> playerViewController = loader.getController();
+                case "TeamView" -> teamViewController = loader.getController();
+                case "MapView" -> mapViewController = loader.getController();
+                case "MatchView" -> matchViewController = loader.getController();
+                case "MatchStatsView" -> matchStatsViewController = loader.getController();
+                case "ReportsView" -> reportsViewController = loader.getController();
             }
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -84,12 +152,24 @@ public class MainViewController {
             innerbp.setBottom(root);
             bp.setCenter(innerbp);
             
-            // Store controller reference if it's the PlayerMenu
-            if (page.equals("PlayerMenu")) {
-                playerMenuController = loader.getController();
+            switch (page) {
+                case "PlayerMenu" -> playerMenuController = loader.getController();
+                case "TeamMenu" -> teamMenuController = loader.getController();
+                case "MapMenu" -> mapMenuController = loader.getController();
+                case "MatchMenu" -> matchMenuController = loader.getController();
+                case "MatchStatsMenu" -> matchStatsMenuController = loader.getController();
             }
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    private void setActiveButton(Button clickedButton) {
+        // Remove the active class from all buttons
+        bp.lookupAll(".menu-button").forEach(node -> {
+            node.getStyleClass().remove("active");
+        });
+        // Add an active class to clicked button
+        clickedButton.getStyleClass().add("active");
     }
 }

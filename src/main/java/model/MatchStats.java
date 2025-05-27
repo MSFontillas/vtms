@@ -1,7 +1,6 @@
 package main.java.model;
 
 public class MatchStats {
-    
     private int statID;
     private int matchID;
     private int playerID;
@@ -11,7 +10,10 @@ public class MatchStats {
     private boolean mvp;
     private String playerName;
     private String teamName;
+    private String teamAName;
+    private String teamBName;
 
+    // Update constructor
     public MatchStats(int statID, int matchID, int playerID, int kills, int deaths, int assists, boolean mvp) {
         this.statID = statID;
         this.matchID = matchID;
@@ -52,4 +54,10 @@ public class MatchStats {
 
     public String getTeamName() { return teamName; }
     public void setTeamName(String teamName) { this.teamName = teamName; }
+
+    public String getTeamAName() { return teamAName; }
+    public void setTeamAName(String teamAName) { this.teamAName = teamAName; }
+
+    public String getTeamBName() { return teamBName; }
+    public void setTeamBName(String teamBName) { this.teamBName = teamBName; }
 }

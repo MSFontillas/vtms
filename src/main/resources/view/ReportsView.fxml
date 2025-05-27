@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.VBox?>
+
+<BorderPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.java.controller.ReportsViewController">
+    <center>
+        <TabPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" stylesheets="@styles/TabStyles.css" tabClosingPolicy="UNAVAILABLE">
+            <Tab text="Player Analytics">
+                <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308">
+                    <TableView fx:id="playerAnalyticsTable" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="742.0" prefWidth="1212.0" stylesheets="@styles/TableStyles.css">
+                        <columns>
+                            <TableColumn fx:id="playerName" maxWidth="1.7976931348623157E308" text="Player Name" />
+                            <TableColumn fx:id="ign" maxWidth="1.7976931348623157E308" text="IGN" />
+                            <TableColumn fx:id="teamName" maxWidth="1.7976931348623157E308" text="Team" />
+                            <TableColumn fx:id="role" maxWidth="1.7976931348623157E308" text="Role" />
+                            <TableColumn fx:id="avgKills" maxWidth="1.7976931348623157E308" text="Avg Kills" />
+                            <TableColumn fx:id="avgDeaths" maxWidth="1.7976931348623157E308" text="Avg Deaths" />
+                            <TableColumn fx:id="avgAssists" maxWidth="1.7976931348623157E308" text="Avg Assists" />
+                            <TableColumn fx:id="kdaRatio" maxWidth="1.7976931348623157E308" text="KDA Ratio" />
+                            <TableColumn fx:id="mvpCount" maxWidth="1.7976931348623157E308" text="MVP Count" />
+                        </columns>
+                        <columnResizePolicy>
+                            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                        </columnResizePolicy>
+                    </TableView>
+                    <fx:include source="PlayerAnalyticsFilter.fxml"/>
+                </VBox>
+            </Tab>
+            <Tab text="Map Statistics">
+                <TableView fx:id="mapStatsTable" stylesheets="@styles/TableStyles.css">
+                    <columns>
+                        <TableColumn fx:id="mapName" text="Map Name" />
+                        <TableColumn fx:id="timesPlayed" text="Times Played" />
+                        <TableColumn fx:id="avgKillsPerMatch" text="Avg Kills/Match" />
+                    </columns>
+                    <columnResizePolicy>
+                        <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                    </columnResizePolicy>
+                </TableView>
+            </Tab>
+            <Tab text="Team Performance">
+                <TableView fx:id="teamPerformanceTable" stylesheets="@styles/TableStyles.css">
+                    <columns>
+                        <TableColumn fx:id="teamNamePerf" text="Team Name" />
+                        <TableColumn fx:id="totalMatches" text="Total Matches" />
+                        <TableColumn fx:id="matchesWon" text="Matches Won" />
+                        <TableColumn fx:id="avgTeamKills" text="Avg Team Kills" />
+                    </columns>
+                    <columnResizePolicy>
+                        <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                    </columnResizePolicy>
+                </TableView>
+            </Tab>
+        </TabPane>
+    </center>
+</BorderPane>

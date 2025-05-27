@@ -71,4 +71,47 @@ public class MapDAO {
         }
         return null;
     }
+    public List<Map> searchMaps(String name) throws SQLException {
+        List<Map> maps = new ArrayList<>();
+        try (dbconnect db = new dbconnect()) {
+            String query = "SELECT * FROM maps WHERE 1=1";
+            List<Object> params = new ArrayList<>();
+
+            if (!name.isEmpty()) {
+                query += " AND mapName LIKE ?";
+                params.add("%" + name + "%");
+            }
+
+            try (PreparedStatement stmt = db.conn.prepareStatement(query)) {
+                for (int i = 0; i < params.size(); i++) {
+                    stmt.setObject(i + 1, params.get(i));
+                }
+
+                try (ResultSet rs = stmt.executeQuery()) {
+                    while (rs.next()) {
+                        maps.add(new Map(
+                            rs.getInt("mapID"),
+                            rs.getString("mapName")
+                        ));
+                    }
+                }
+            }
+        }
+        return maps;
+    }
+
+    public int getMapIdByName(String mapName) throws SQLException {
+        try (dbconnect db = new dbconnect()) {
+            String query = "SELECT mapID FROM maps WHERE mapName = ?";
+            try (PreparedStatement stmt = db.conn.prepareStatement(query)) {
+                stmt.setString(1, mapName);
+                try (ResultSet rs = stmt.executeQuery()) {
+                    if (rs.next()) {
+                        return rs.getInt("mapID");
+                    }
+                    throw new SQLException("Map not found: " + mapName);
+                }
+            }
+        }
+    }
 }

@@ -186,4 +186,19 @@ public class PlayerDAO {
         }
         return players;
     }
+
+    public int getPlayerIdByName(String playerName) throws SQLException {
+        try (dbconnect db = new dbconnect()) {
+            String query = "SELECT playerID FROM players WHERE CONCAT(playerName, ' (', ign, ')') = ?";
+            try (PreparedStatement stmt = db.conn.prepareStatement(query)) {
+                stmt.setString(1, playerName);
+                try (ResultSet rs = stmt.executeQuery()) {
+                    if (rs.next()) {
+                        return rs.getInt("playerID");
+                    }
+                    throw new SQLException("Player not found: " + playerName);
+                }
+            }
+        }
+    }
 }

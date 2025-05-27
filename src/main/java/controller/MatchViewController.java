@@ -5,43 +5,48 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.collections.FXCollections;
 import main.java.model.Match;
 import main.java.model.MatchDAO;
 
 import java.net.URL;
-import java.sql.Date;
-import java.sql.Time;
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class MatchViewController implements Initializable {
     @FXML
     private TableView<Match> matchTable;
-
+    
     @FXML
     private TableColumn<Match, Integer> matchID;
-
+    
     @FXML
     private TableColumn<Match, String> teamA;
-
+    
     @FXML
     private TableColumn<Match, String> teamB;
-
+    
     @FXML
     private TableColumn<Match, String> winner;
-
+    
     @FXML
     private TableColumn<Match, String> map;
-
+    
     @FXML
-    private TableColumn<Match, Date> date;
-
+    private TableColumn<Match, LocalDate> date;
+    
     @FXML
-    private TableColumn<Match, Time> time;
+    private TableColumn<Match, LocalTime> time;
+    
+    private MatchDAO matchDAO;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        matchDAO = new MatchDAO();
+        
+        // Initialize column cell value factories
         matchID.setCellValueFactory(new PropertyValueFactory<>("matchID"));
         teamA.setCellValueFactory(new PropertyValueFactory<>("teamAName"));
         teamB.setCellValueFactory(new PropertyValueFactory<>("teamBName"));
@@ -49,16 +54,25 @@ public class MatchViewController implements Initializable {
         map.setCellValueFactory(new PropertyValueFactory<>("mapName"));
         date.setCellValueFactory(new PropertyValueFactory<>("matchDate"));
         time.setCellValueFactory(new PropertyValueFactory<>("matchTime"));
-
+        
+        // Load initial data
         loadMatchData();
     }
-
-    private void loadMatchData() {
+    
+    public void loadMatchData() {
         try {
-            MatchDAO matchDAO = new MatchDAO();
-            matchTable.setItems(FXCollections.observableArrayList(matchDAO.getAllMatches()));
-        } catch (SQLException e) {
+            matchTable.getItems().clear();
+            matchTable.getItems().addAll(matchDAO.searchMatches("", "", null, "", ""));
+        } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+    
+    public List<Match> searchMatches(String teamA, String teamB) throws SQLException {
+        return matchDAO.searchMatchesbyTeam(teamA, teamB);
+    }
+    
+    public TableView<Match> getMatchTable() {
+        return matchTable;
     }
 }

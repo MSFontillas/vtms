@@ -50,17 +50,17 @@ CREATE TABLE maps (
 
 -- 4. Matches Table
 CREATE TABLE matches (
-    matchID INT AUTO_INCREMENT PRIMARY KEY,
-    Date DATE NOT NULL,
-    Time TIME NOT NULL,
-    teamA_ID INT NOT NULL,
-    teamB_ID INT NOT NULL,
+    match_ID INT PRIMARY KEY AUTO_INCREMENT,
+    teamA_ID INT,
+    teamB_ID INT,
+    match_date DATE,
+    match_time TIME,
     winner_ID INT,
-    mapID INT,
-    FOREIGN KEY (teamA_ID) REFERENCES teams(teamID) ON DELETE CASCADE,
-    FOREIGN KEY (teamB_ID) REFERENCES teams(teamID) ON DELETE CASCADE,
-    FOREIGN KEY (winner_ID) REFERENCES teams(teamID) ON DELETE SET NULL,
-    FOREIGN KEY (mapID) REFERENCES maps(mapID) ON DELETE SET NULL
+    map_ID INT,
+    FOREIGN KEY (teamA_ID) REFERENCES teams(teamID),
+    FOREIGN KEY (teamB_ID) REFERENCES teams(teamID),
+    FOREIGN KEY (winner_ID) REFERENCES teams(teamID),
+    FOREIGN KEY (map_ID) REFERENCES maps(mapID)
 );
 
 -- 5. Match_Stats Table
@@ -72,7 +72,7 @@ CREATE TABLE match_Stats (
     deaths INT DEFAULT 0,
     assists INT DEFAULT 0,
     mvp BOOLEAN DEFAULT FALSE,
-    FOREIGN KEY (matchID) REFERENCES matches(matchID) ON DELETE CASCADE,
+    FOREIGN KEY (matchID) REFERENCES matches(match_ID) ON DELETE CASCADE,
     FOREIGN KEY (playerID) REFERENCES players(playerID) ON DELETE CASCADE
 );
 
@@ -81,12 +81,12 @@ CREATE TABLE match_Stats (
 CREATE VIEW team_performance_summary AS
 SELECT 
     t.teamName,
-    COUNT(DISTINCT m.matchID) as total_matches,
+    COUNT(DISTINCT m.match_ID) as total_matches,
     COUNT(CASE WHEN m.winner_ID = t.teamID THEN 1 END) as matches_won,
     ROUND(AVG(ms.kills), 2) as avg_team_kills
 FROM teams t
 LEFT JOIN matches m ON t.teamID = m.teamA_ID OR t.teamID = m.teamB_ID
-LEFT JOIN match_Stats ms ON m.matchID = ms.matchID
+LEFT JOIN match_Stats ms ON m.match_ID = ms.matchID
 LEFT JOIN players p ON ms.playerID = p.playerID AND p.teamID = t.teamID
 GROUP BY t.teamID, t.teamName;
 
@@ -109,11 +109,11 @@ GROUP BY p.playerID, p.playerName, p.ign, p.Role, t.teamName;
 CREATE VIEW map_statistics AS
 SELECT 
     m.mapName,
-    COUNT(mt.matchID) as times_played,
+    COUNT(mt.match_ID) as times_played,
     ROUND(AVG(ms.kills), 2) as avg_kills_per_match
 FROM maps m
-LEFT JOIN matches mt ON m.mapID = mt.mapID
-LEFT JOIN match_Stats ms ON mt.matchID = ms.matchID
+LEFT JOIN matches mt ON m.mapID = mt.map_ID
+LEFT JOIN match_Stats ms ON mt.match_ID = ms.matchID
 GROUP BY m.mapID, m.mapName;
 
 
@@ -133,7 +133,7 @@ FOR EACH ROW
 BEGIN
     INSERT INTO match_history_log (matchID, action_type, details)
     VALUES (
-        NEW.matchID,
+        NEW.match_ID,
         'MATCH_RESULT_UPDATE',
         CONCAT('Match winner updated. Winner Team ID: ', NEW.winner_ID)
     );
@@ -145,9 +145,6 @@ DELIMITER ;
 ALTER TABLE players ADD COLUMN created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP;
 ALTER TABLE players ADD COLUMN updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP;
 
-ALTER TABLE teams ADD COLUMN region_rank INT;
-
-
 -- PROCEDURE
 DELIMITER //
 
@@ -155,7 +152,7 @@ CREATE PROCEDURE GetMatchStatistics()
 BEGIN
     -- INNER JOIN example
     SELECT 
-        m.matchID,
+        m.match_ID,
         ta.teamName as team_a,
         tb.teamName as team_b,
         w.teamName as winner,
@@ -164,22 +161,22 @@ BEGIN
     INNER JOIN teams ta ON m.teamA_ID = ta.teamID
     INNER JOIN teams tb ON m.teamB_ID = tb.teamID
     INNER JOIN teams w ON m.winner_ID = w.teamID
-    INNER JOIN maps mp ON m.mapID = mp.mapID;
+    INNER JOIN maps mp ON m.map_ID = mp.mapID;
 
     -- RIGHT JOIN example
     SELECT 
         t.teamName,
-        COUNT(m.matchID) as matches_played
+        COUNT(m.match_ID) as matches_played
     FROM matches m
     RIGHT JOIN teams t ON t.teamID = m.teamA_ID OR t.teamID = m.teamB_ID
     GROUP BY t.teamID, t.teamName;
 
     -- FULL OUTER JOIN simulation (MySQL doesn't support FULL OUTER directly)
-    SELECT t.teamName, m.matchID
+    SELECT t.teamName, m.match_ID
     FROM teams t
     LEFT JOIN matches m ON t.teamID = m.teamA_ID OR t.teamID = m.teamB_ID
     UNION
-    SELECT t.teamName, m.matchID
+    SELECT t.teamName, m.match_ID
     FROM teams t
     RIGHT JOIN matches m ON t.teamID = m.teamA_ID OR t.teamID = m.teamB_ID;
 END //
@@ -226,15 +223,15 @@ BEGIN
     
     -- Player match history with LEFT JOIN
     SELECT 
-        m.matchID,
-        m.Date,
+        m.match_ID,
+        m.match_date,
         ms.kills,
         ms.deaths,
         ms.assists,
         ms.mvp
     FROM players p
     LEFT JOIN match_Stats ms ON p.playerID = ms.playerID
-    LEFT JOIN matches m ON ms.matchID = m.matchID
+    LEFT JOIN matches m ON ms.matchID = m.match_ID
     WHERE p.playerID = p_playerID;
 END //
 

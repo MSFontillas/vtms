@@ -2,6 +2,7 @@ package main.java.controller;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -25,13 +26,24 @@ public class MapViewController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        // Set up column cell value factories
         mapID.setCellValueFactory(new PropertyValueFactory<>("mapID"));
         mapName.setCellValueFactory(new PropertyValueFactory<>("mapName"));
 
+        // Configure selection mode
+        mapTable.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
+
+        // Load initial data
         loadMapData();
     }
 
-    private void loadMapData() {
+    // Getter for the table view
+    public TableView<Map> getMapTable() {
+        return mapTable;
+    }
+
+    // Make loadMapData public so it can be called from MapMenuController
+    public void loadMapData() {
         try {
             MapDAO mapDAO = new MapDAO();
             mapTable.setItems(FXCollections.observableArrayList(mapDAO.getAllMaps()));

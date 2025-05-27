@@ -7,9 +7,13 @@ module your.module.name {
     exports main.java;
     exports main.java.controller;
     exports main.java.model;
-    exports main.java.view;
-    
-    opens main.java.controller to javafx.fxml;
+    exports main.java.util;
+
+    opens main.java to javafx.fxml;
     opens main.java.model to javafx.base;
-    opens main.java.view to javafx.fxml;
+    opens main.java.controller to javafx.base, javafx.fxml;
+    opens main.java.util to javafx.base, javafx.fxml;
+
+    // Add these lines to fix the ControlsFX access issue
+    requires javafx.base;
 }

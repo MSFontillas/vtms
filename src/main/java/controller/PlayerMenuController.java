@@ -10,11 +10,14 @@ import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import main.java.model.Player;
+import main.java.model.Team;
 import main.java.model.PlayerDAO;
 import main.java.model.TeamDAO;
 import main.java.util.AlertUtil;
+import main.java.util.AutoCompleteUtil;
 import main.java.util.ValidationException;
 
 public class PlayerMenuController implements Initializable {
@@ -44,6 +47,54 @@ public class PlayerMenuController implements Initializable {
         playerDAO = new PlayerDAO();
         teamDAO = new TeamDAO();
         alertUtil = new AlertUtil();
+
+        try {
+            // Get player-related suggestions
+            List<Player> players = playerDAO.getAllPlayers();
+            List<String> playerNames = players.stream()
+                    .map(Player::getPlayerName)
+                    .collect(Collectors.toList());
+
+            List<String> igns = players.stream()
+                    .map(Player::getIgn)
+                    .collect(Collectors.toList());
+
+            List<String> roles = players.stream()
+                    .map(Player::getRole)
+                    .distinct()
+                    .collect(Collectors.toList());
+
+            // Get team names for team field
+            List<String> teamNames = teamDAO.getAllTeams()
+                    .stream()
+                    .map(Team::getTeamName)
+                    .collect(Collectors.toList());
+
+            // Setup autocomplete for all fields
+            AutoCompleteUtil.setupAutoComplete(nameField, playerNames);
+            AutoCompleteUtil.setupAutoComplete(ignField, igns);
+            AutoCompleteUtil.setupAutoComplete(roleField, roles);
+            AutoCompleteUtil.setupAutoComplete(teamField, teamNames);
+
+            // Disable the search button until PlayerViewController is set
+            smb.setDisable(true);
+
+            // Configure the main button action (Search)
+            smb.setOnAction(e -> handleSearch());
+
+            // Configure menu items
+            for (MenuItem item : smb.getItems()) {
+                switch (item.getText()) {
+                    case "Add" -> item.setOnAction(e -> handleAdd());
+                    case "Update" -> item.setOnAction(e -> handleUpdate());
+                    case "Delete" -> item.setOnAction(e -> handleDelete());
+                }
+            }
+        } catch (SQLException e) {
+            alertUtil.showError("Initialization Error", "Failed to load suggestions: " + e.getMessage());
+            e.printStackTrace();
+        }
+
         
         // Disable the search button until PlayerViewController is set
         smb.setDisable(true);
