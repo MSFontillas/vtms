@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Point3D?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane fx:id="bp" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1600.0" style="-fx-background-color: #282f38;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.java.controller.MainViewController">
+   <left>
+      <VBox prefWidth="400.0" style="-fx-background-color: #111823;" BorderPane.alignment="CENTER">
+         <AnchorPane prefHeight="200.0"/>
+         <Button alignment="BASELINE_LEFT" layoutX="10.0" layoutY="210.0" mnemonicParsing="false" onMouseClicked="#home"
+                 prefHeight="0.0" prefWidth="400.0" style="-fx-background-color: transparent;" text="HOME"
+                 textFill="#ff4654">
+            <font>
+               <Font name="Verdana Bold" size="48.0"/>
+            </font>
+         </Button>
+         <Button alignment="BASELINE_LEFT" mnemonicParsing="false" onMouseClicked="#players" prefHeight="0.0"
+                 prefWidth="400.0" style="-fx-background-color: transparent;" text="PLAYERS" textFill="#ff4654">
+            <font>
+               <Font name="Verdana Bold" size="48.0"/>
+            </font>
+         </Button>
+         <Button alignment="BASELINE_LEFT" layoutX="10.0" layoutY="210.0" mnemonicParsing="false"
+                 onMouseClicked="#teams" prefHeight="0.0" prefWidth="400.0" style="-fx-background-color: transparent;"
+                 text="TEAMS" textFill="#ff4654">
+            <font>
+               <Font name="Verdana Bold" size="48.0"/>
+            </font>
+         </Button>
+         <Button alignment="BASELINE_LEFT" layoutX="10.0" layoutY="305.0" mnemonicParsing="false" onMouseClicked="#maps"
+                 prefHeight="0.0" prefWidth="400.0" style="-fx-background-color: transparent;" text="MAPS"
+                 textFill="#ff4654">
+            <font>
+               <Font name="Verdana Bold" size="48.0"/>
+            </font>
+         </Button>
+         <Button alignment="BASELINE_LEFT" layoutX="10.0" layoutY="400.0" mnemonicParsing="false"
+                 onMouseClicked="#matches" prefHeight="0.0" prefWidth="400.0" style="-fx-background-color: transparent;"
+                 text="MATCHES" textFill="#ff4654">
+            <font>
+               <Font name="Verdana Bold" size="48.0"/>
+            </font>
+         </Button>
+         <Button alignment="BASELINE_LEFT" layoutX="10.0" layoutY="495.0" mnemonicParsing="false"
+                 onMouseClicked="#match_stats" prefHeight="0.0" prefWidth="400.0"
+                 style="-fx-background-color: transparent;" text="STATS" textFill="#ff4654">
+            <font>
+               <Font name="Verdana Bold" size="48.0"/>
+            </font>
+         </Button>
+      </VBox>
+   </left>
+   <center>
+      <BorderPane fx:id="innerbp" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+         <center>
+            <AnchorPane fx:id="ap" BorderPane.alignment="CENTER">
+               <rotationAxis>
+                  <Point3D/>
+               </rotationAxis>
+               <ImageView fitHeight="600.0" fitWidth="600.0" layoutX="307.0" layoutY="143.0" nodeOrientation="INHERIT"
+                          pickOnBounds="true" preserveRatio="true">
+                  <rotationAxis>
+                     <Point3D/>
+                  </rotationAxis>
+                  <Image url="@../images/vtms_logo.png"/>
+               </ImageView>
+            </AnchorPane>
+         </center>
+         <bottom>
+            <AnchorPane fx:id="lowerap" BorderPane.alignment="CENTER" />
+         </bottom>
+      </BorderPane>
+   </center>
+</BorderPane>

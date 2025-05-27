@@ -134,4 +134,56 @@ public class PlayerDAO {
         }
         return statistics;
     }
+
+    // Add this method to PlayerDAO.java
+    public List<Player> searchPlayers(String name, String ign, String role, String team) throws SQLException {
+        List<Player> players = new ArrayList<>();
+        try (dbconnect db = new dbconnect()) {
+            StringBuilder queryBuilder = new StringBuilder(
+                    "SELECT p.*, t.teamName FROM players p " +
+                            "LEFT JOIN teams t ON p.teamID = t.teamID WHERE 1=1"
+            );
+            List<Object> params = new ArrayList<>();
+
+            if (name != null && !name.trim().isEmpty()) {
+                queryBuilder.append(" AND p.playerName LIKE ?");
+                params.add("%" + name + "%");
+            }
+            if (ign != null && !ign.trim().isEmpty()) {
+                queryBuilder.append(" AND p.ign LIKE ?");
+                params.add("%" + ign + "%");
+            }
+            if (role != null && !role.trim().isEmpty()) {
+                queryBuilder.append(" AND p.role LIKE ?");
+                params.add("%" + role + "%");
+            }
+            if (team != null && !team.trim().isEmpty()) {
+                queryBuilder.append(" AND t.teamName LIKE ?");
+                params.add("%" + team + "%");
+            }
+
+            queryBuilder.append(" ORDER BY p.teamID");
+
+            try (PreparedStatement stmt = db.conn.prepareStatement(queryBuilder.toString())) {
+                for (int i = 0; i < params.size(); i++) {
+                    stmt.setObject(i + 1, params.get(i));
+                }
+
+                try (ResultSet rs = stmt.executeQuery()) {
+                    while (rs.next()) {
+                        Player player = new Player(
+                                rs.getInt("playerID"),
+                                rs.getString("playerName"),
+                                rs.getString("ign"),
+                                rs.getString("role"),
+                                rs.getInt("teamID")
+                        );
+                        player.setTeamName(rs.getString("teamName"));
+                        players.add(player);
+                    }
+                }
+            }
+        }
+        return players;
+    }
 }

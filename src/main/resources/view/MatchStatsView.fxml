@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.BorderPane?>
+
+<BorderPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.java.controller.MatchStatsViewController">
+    <center>
+        <TableView fx:id="matchStatsTable" stylesheets="@styles/TableStyles.css" BorderPane.alignment="CENTER">
+            <columns>
+                <TableColumn fx:id="statID" text="ID" />
+                <TableColumn fx:id="matchID" text="Match ID" />
+                <TableColumn fx:id="playerName" minWidth="300.0" text="Player" />
+                <TableColumn fx:id="teamName" minWidth="200.0" text="Team" />
+                <TableColumn fx:id="kills" minWidth="100.0" text="Kills" />
+                <TableColumn fx:id="deaths" minWidth="100.0" text="Deaths" />
+                <TableColumn fx:id="assists" minWidth="100.0" text="Assists" />
+                <TableColumn fx:id="mvp" minWidth="100.0" text="MVP" />
+            </columns>
+            <columnResizePolicy>
+                <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+            </columnResizePolicy>
+        </TableView>
+    </center>
+</BorderPane>

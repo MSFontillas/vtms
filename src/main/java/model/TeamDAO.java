@@ -79,4 +79,20 @@ public class TeamDAO {
         }
         return null;
     }
+
+    public int getTeamIdByName(String teamName) throws SQLException {
+        try (dbconnect db = new dbconnect()) {
+            String query = "SELECT teamID FROM teams WHERE teamName = ?";
+            try (PreparedStatement stmt = db.conn.prepareStatement(query)) {
+                stmt.setString(1, teamName);
+                try (ResultSet rs = stmt.executeQuery()) {
+                    if (rs.next()) {
+                        return rs.getInt("teamID");
+                    }
+                }
+            }
+        }
+        throw new SQLException("Team not found: " + teamName);
+    }
+
 }

@@ -1,3 +1,5 @@
+package main.java;
+
 import main.java.controller.*;
 import main.java.view.*;
 import main.java.model.*;

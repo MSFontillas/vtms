@@ -1,7 +1,7 @@
-// Model/MatchStats.java
 package main.java.model;
 
 public class MatchStats {
+    
     private int statID;
     private int matchID;
     private int playerID;
@@ -9,6 +9,8 @@ public class MatchStats {
     private int deaths;
     private int assists;
     private boolean mvp;
+    private String playerName;
+    private String teamName;
 
     public MatchStats(int statID, int matchID, int playerID, int kills, int deaths, int assists, boolean mvp) {
         this.statID = statID;
@@ -44,4 +46,10 @@ public class MatchStats {
 
     public boolean isMvp() { return mvp; }
     public void setMvp(boolean mvp) { this.mvp = mvp; }
+
+    public String getPlayerName() { return playerName; }
+    public void setPlayerName(String playerName) { this.playerName = playerName; }
+
+    public String getTeamName() { return teamName; }
+    public void setTeamName(String teamName) { this.teamName = teamName; }
 }

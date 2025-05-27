@@ -298,7 +298,6 @@ INSERT INTO Match_Stats (StatID, MatchID, PlayerID, Kills, Deaths, Assists, MVP)
 (99, 10, 24, 13, 21, 12, 0),
 (100, 10, 25, 11, 22, 13, 0),
 
--- Continuing with similar patterns for matches 11-30 (200 more rows)
 -- Match 11 (Team Liquid vs Optic Gaming)
 (101, 11, 26, 22, 16, 8, 1),  -- ScreaM MVP
 (102, 11, 27, 19, 17, 9, 0),

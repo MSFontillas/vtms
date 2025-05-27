@@ -24,24 +24,40 @@ public class MatchDAO {
     public List<Match> getAllMatches() throws SQLException {
         List<Match> matches = new ArrayList<>();
         try (dbconnect db = new dbconnect()) {
-            String query = "SELECT * FROM matches";
-            try (Statement stmt = db.conn.createStatement();
-                 ResultSet rs = stmt.executeQuery(query)) {
-                while (rs.next()) {
-                    matches.add(new Match(
-                            rs.getInt("matchID"),
-                            rs.getInt("teamA_ID"),
-                            rs.getInt("teamB_ID"),
-                            rs.getInt("winner_ID"),
-                            rs.getInt("mapID"),
-                            rs.getDate("Date"),
-                            rs.getTime("Time")
-                    ));
-                }
+            String query = """
+            SELECT m.*,
+                   t1.teamName as teamAName,
+                   t2.teamName as teamBName,
+                   t3.teamName as winnerName,
+                   mp.mapName as mapName
+            FROM matches m
+            LEFT JOIN teams t1 ON m.teamA_ID = t1.teamID
+            LEFT JOIN teams t2 ON m.teamB_ID = t2.teamID
+            LEFT JOIN teams t3 ON m.winner_ID = t3.teamID
+            LEFT JOIN maps mp ON m.mapID = mp.mapID
+        """;
+        try (Statement stmt = db.conn.createStatement();
+             ResultSet rs = stmt.executeQuery(query)) {
+            while (rs.next()) {
+                Match match = new Match(
+                    rs.getInt("matchID"),
+                    rs.getInt("teamA_ID"),
+                    rs.getInt("teamB_ID"),
+                    rs.getInt("winner_ID"),
+                    rs.getInt("mapID"),
+                    rs.getDate("Date"),
+                    rs.getTime("Time")
+                );
+                match.setTeamAName(rs.getString("teamAName"));
+                match.setTeamBName(rs.getString("teamBName"));
+                match.setWinnerName(rs.getString("winnerName"));
+                match.setMapName(rs.getString("mapName"));
+                matches.add(match);
             }
         }
-        return matches;
     }
+    return matches;
+}
 
     public void updateMatch(Match match) throws SQLException {
         try (dbconnect db = new dbconnect()) {

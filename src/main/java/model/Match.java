@@ -11,6 +11,10 @@ public class Match {
     private int mapID;
     private Date matchDate;
     private Time matchTime;
+    private String teamAName;
+    private String teamBName;
+    private String winnerName;
+    private String mapName;
 
     public Match() {}
 
@@ -56,4 +60,16 @@ public class Match {
 
     public Time getMatchTime() { return matchTime; }
     public void setMatchTime(Time matchTime) { this.matchTime = matchTime; }
+
+    public String getTeamAName() { return teamAName; }
+    public void setTeamAName(String teamAName) { this.teamAName = teamAName; }
+
+    public String getTeamBName() { return teamBName; }
+    public void setTeamBName(String teamBName) { this.teamBName = teamBName; }
+
+    public String getWinnerName() { return winnerName; }
+    public void setWinnerName(String winnerName) { this.winnerName = winnerName; }
+
+    public String getMapName() { return mapName; }
+    public void setMapName(String mapName) { this.mapName = mapName; }
 }

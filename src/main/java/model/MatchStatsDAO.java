@@ -24,11 +24,17 @@ public class MatchStatsDAO {
     public List<MatchStats> getAllMatchStats() throws SQLException {
         List<MatchStats> statsList = new ArrayList<>();
         try (dbconnect db = new dbconnect()) {
-            String query = "SELECT * FROM match_stats";
+            String query = """
+            SELECT ms.*, p.playerName, p.ign, t.teamName
+            FROM match_stats ms
+            JOIN players p ON ms.playerID = p.playerID
+            LEFT JOIN teams t ON p.teamID = t.teamID
+            ORDER BY ms.statID
+            """;
             try (Statement stmt = db.conn.createStatement();
                  ResultSet rs = stmt.executeQuery(query)) {
                 while (rs.next()) {
-                    statsList.add(new MatchStats(
+                    MatchStats stats = new MatchStats(
                             rs.getInt("statID"),
                             rs.getInt("matchID"),
                             rs.getInt("playerID"),
@@ -36,7 +42,12 @@ public class MatchStatsDAO {
                             rs.getInt("deaths"),
                             rs.getInt("assists"),
                             rs.getBoolean("mvp")
-                    ));
+                    );
+                    String displayName = rs.getString("playerName") + " (" + rs.getString("ign") + ")";
+                    String teamName = rs.getString("teamName");
+                    stats.setTeamName(teamName);
+                    stats.setPlayerName(displayName);
+                    statsList.add(stats);
                 }
             }
         }
@@ -91,4 +102,39 @@ public class MatchStatsDAO {
         }
         return null;
     }
+
+    public List<MatchStats> getMatchStatsByMatchId(int matchId) throws SQLException {
+        List<MatchStats> statsList = new ArrayList<>();
+        try (dbconnect db = new dbconnect()) {
+            String query = """
+                SELECT ms.*, p.playerName, p.ign
+                FROM match_stats ms
+                JOIN players p ON ms.playerID = p.playerID
+                WHERE ms.matchID = ?
+                ORDER BY ms.mvp DESC, ms.kills DESC
+            """;
+
+            try (PreparedStatement stmt = db.conn.prepareStatement(query)) {
+                stmt.setInt(1, matchId);
+                try (ResultSet rs = stmt.executeQuery()) {
+                    while (rs.next()) {
+                        MatchStats stats = new MatchStats(
+                                rs.getInt("statID"),
+                                rs.getInt("matchID"),
+                                rs.getInt("playerID"),
+                                rs.getInt("kills"),
+                                rs.getInt("deaths"),
+                                rs.getInt("assists"),
+                                rs.getBoolean("mvp")
+                        );
+                        // Set the player name (combining real name and IGN)
+                        stats.setPlayerName(rs.getString("playerName") + " (" + rs.getString("ign") + ")");
+                        statsList.add(stats);
+                    }
+                }
+            }
+        }
+        return statsList;
+    }
+
 }
