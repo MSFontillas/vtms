@@ -170,8 +170,20 @@ public class MapMenuController implements Initializable {
     }
     
     private void validateFields() throws ValidationException {
-        if (nameField.getText().trim().isEmpty()) {
+        String mapName = nameField.getText().trim();
+        
+        if (mapName.isEmpty()) {
             throw new ValidationException("Map name is required");
+        }
+        
+        // Additional validation for map name length
+        if (mapName.length() < 2 || mapName.length() > 50) {
+            throw new ValidationException("Map name must be between 2 and 50 characters");
+        }
+        
+        // Check for special characters
+        if (!mapName.matches("^[a-zA-Z0-9\\s-_]+$")) {
+            throw new ValidationException("Map name can only contain letters, numbers, spaces, hyphens and underscores");
         }
     }
 }

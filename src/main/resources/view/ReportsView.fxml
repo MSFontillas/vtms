@@ -28,7 +28,7 @@
                             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                         </columnResizePolicy>
                     </TableView>
-                    <fx:include source="PlayerAnalyticsFilter.fxml"/>
+                    <fx:include fx:id="playerAnalyticsFilterController" source="PlayerAnalyticsFilter.fxml"/>
                 </VBox>
             </Tab>
             <Tab text="Map Statistics">

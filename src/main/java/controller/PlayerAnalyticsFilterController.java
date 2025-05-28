@@ -2,7 +2,7 @@ package main.java.controller;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.SplitMenuButton;
+import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import main.java.model.PlayerAnalytics;
 import java.net.URL;
@@ -13,20 +13,19 @@ public class PlayerAnalyticsFilterController implements Initializable {
     @FXML private TextField playerField;
     @FXML private TextField teamField;
     @FXML private TextField roleField;
-    @FXML private SplitMenuButton filterButton;
+    @FXML private Button filterButton;
     
     private ReportsViewController reportsViewController;
 
     @Override
-    public void initialize(URL url, ResourceBundle rb) {
-        filterButton.setOnAction(e -> handleFilter());
-    }
+    public void initialize(URL url, ResourceBundle rb) {}
 
     public void setReportsViewController(ReportsViewController controller) {
         this.reportsViewController = controller;
     }
 
-    private void handleFilter() {
+    @FXML
+    public void handleFilter() {
         if (reportsViewController != null) {
             String player = playerField.getText().toLowerCase().trim();
             String team = teamField.getText().toLowerCase().trim();
@@ -38,9 +37,9 @@ public class PlayerAnalyticsFilterController implements Initializable {
                 (team.isEmpty() || p.getTeamName().toLowerCase().contains(team)) &&
                 (role.isEmpty() || p.getRole().toLowerCase().contains(role));
 
-            reportsViewController.filterPlayerAnalytics(filter);
-        }
+        reportsViewController.filterPlayerAnalytics(filter);
     }
+}
 
     public void clearFields() {
         playerField.clear();

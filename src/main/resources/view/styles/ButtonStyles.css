@@ -1,0 +1,39 @@
+/* Style for Button */
+.button {
+    -fx-background-color: #ff4654;
+    -fx-text-fill: white;
+    -fx-background-radius: 4px;
+    -fx-border-radius: 4px;
+    -fx-padding: 5px 10px;
+    -fx-font-weight: bold;
+    -fx-font-size: 20px;
+    -fx-min-width: 100px;
+    -fx-min-height: 40px;
+}
+
+/* Hover effect */
+.button:hover {
+    -fx-background-color: #ba3a46;
+    -fx-cursor: hand;
+}
+
+/* Pressed effect */
+.button:pressed {
+    -fx-background-color: #ff4654;
+}
+
+/* Focused state */
+.button:focused {
+    -fx-background-color: #ba3a46;
+    -fx-text-fill: white;
+}
+
+/* Hover effect when focused */
+.button:focused:hover {
+    -fx-background-color: #ff4654;
+}
+
+/* Disabled state */
+.button:disabled {
+    -fx-opacity: 0.5;
+}

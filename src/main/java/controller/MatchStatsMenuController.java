@@ -266,28 +266,62 @@ public class MatchStatsMenuController implements Initializable {
         }
     }
 
-    private void validateFields() throws ValidationException {
-        if (matchIDField.getText().trim().isEmpty()) {
-            throw new ValidationException("Match ID is required");
-        }
-        if (killsField.getText().trim().isEmpty()) {
-            throw new ValidationException("Kills is required");
-        }
-        if (deathsField.getText().trim().isEmpty()) {
-            throw new ValidationException("Deaths is required");
-        }
-        if (assistsField.getText().trim().isEmpty()) {
-            throw new ValidationException("Assists is required");
-        }
+private void validateFields() throws ValidationException {
+    String matchIdStr = matchIDField.getText().trim();
+    String playerName = playerField.getText().trim();
+    String killsStr = killsField.getText().trim();
+    String deathsStr = deathsField.getText().trim();
+    String assistsStr = assistsField.getText().trim();
 
-        // Validate numeric fields
-        try {
-            Integer.parseInt(matchIDField.getText().trim());
-            Integer.parseInt(killsField.getText().trim());
-            Integer.parseInt(deathsField.getText().trim());
-            Integer.parseInt(assistsField.getText().trim());
-        } catch (NumberFormatException e) {
-            throw new ValidationException("Match ID, Kills, Deaths, and Assists must be valid numbers");
-        }
+    // Required fields validation
+    if (matchIdStr.isEmpty()) {
+        throw new ValidationException("Match ID is required");
     }
+    if (playerName.isEmpty()) {
+        throw new ValidationException("Player name is required");
+    }
+    if (killsStr.isEmpty()) {
+        throw new ValidationException("Kills is required");
+    }
+    if (deathsStr.isEmpty()) {
+        throw new ValidationException("Deaths is required");
+    }
+    if (assistsStr.isEmpty()) {
+        throw new ValidationException("Assists is required");
+    }
+
+    // Numeric validation with reasonable ranges
+    try {
+        int matchId = Integer.parseInt(matchIdStr);
+        int kills = Integer.parseInt(killsStr);
+        int deaths = Integer.parseInt(deathsStr);
+        int assists = Integer.parseInt(assistsStr);
+
+        if (matchId <= 0) {
+            throw new ValidationException("Match ID must be a positive number");
+        }
+        if (kills < 0) {
+            throw new ValidationException("Kills cannot be negative");
+        }
+        if (deaths < 0) {
+            throw new ValidationException("Deaths cannot be negative");
+        }
+        if (assists < 0) {
+            throw new ValidationException("Assists cannot be negative");
+        }
+        
+        // Additional game-specific validation
+        if (kills > 100) {
+            throw new ValidationException("Kills value seems unreasonably high");
+        }
+        if (deaths > 100) {
+            throw new ValidationException("Deaths value seems unreasonably high");
+        }
+        if (assists > 100) {
+            throw new ValidationException("Assists value seems unreasonably high");
+        }
+    } catch (NumberFormatException e) {
+        throw new ValidationException("Match ID, Kills, Deaths, and Assists must be valid numbers");
+    }
+}
 }

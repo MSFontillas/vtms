@@ -250,20 +250,39 @@ public class MatchMenuController implements Initializable {
     }
     
     private void validateFields() throws ValidationException {
-        if (teamAField.getText().trim().isEmpty()) {
+        String teamA = teamAField.getText().trim();
+        String teamB = teamBField.getText().trim();
+        String winner = winnerField.getText().trim();
+        String map = mapField.getText().trim();
+
+        // Basic required field validation
+        if (teamA.isEmpty()) {
             throw new ValidationException("Team A is required");
         }
-        if (teamBField.getText().trim().isEmpty()) {
+        if (teamB.isEmpty()) {
             throw new ValidationException("Team B is required");
         }
-        if (datePicker.getValue() == null) {
-            throw new ValidationException("Date is required");
+
+        // Team comparison validation
+        if (teamA.equalsIgnoreCase(teamB)) {
+            throw new ValidationException("Team A and Team B cannot be the same team");
         }
-        if (winnerField.getText().trim().isEmpty()) {
-            throw new ValidationException("Winner is required");
+
+        // Winner validation
+        if (!winner.equalsIgnoreCase(teamA) && !winner.equalsIgnoreCase(teamB)) {
+            if(!winner.isEmpty()) {
+                throw new ValidationException("Winner must be either Team A or Team B");
+            }
         }
-        if (mapField.getText().trim().isEmpty()) {
-            throw new ValidationException("Map is required");
+
+        // Time validation
+        int hour = hourPicker.getValue();
+        int minute = minutePicker.getValue();
+        if (hour < 0 || hour > 23) {
+            throw new ValidationException("Invalid hour value");
+        }
+        if (minute < 0 || minute > 59) {
+            throw new ValidationException("Invalid minute value");
         }
     }
 }

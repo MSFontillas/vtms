@@ -6,6 +6,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.collections.FXCollections;
+import javafx.scene.layout.AnchorPane;
 import main.java.model.MapStatistics;
 import main.java.model.PlayerAnalytics;
 import main.java.model.ReportsDAO;
@@ -21,6 +22,12 @@ import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 public class ReportsViewController implements Initializable {
+    @FXML 
+    private PlayerAnalyticsFilterController playerAnalyticsFilterControllerController;
+
+    @FXML
+    private AnchorPane playerAnalyticsFilterController;
+
     private List<PlayerAnalytics> allPlayerAnalytics;  // Store all analytics
     
     @FXML private TableView<PlayerAnalytics> playerAnalyticsTable;
@@ -55,6 +62,11 @@ public class ReportsViewController implements Initializable {
         initializePlayerAnalyticsTable();
         initializeMapStatsTable();
         initializeTeamPerformanceTable();
+        
+        // Set this controller instance in the filter controller
+        if (playerAnalyticsFilterControllerController != null) {
+            playerAnalyticsFilterControllerController.setReportsViewController(this);
+        }
         
         loadAllData();
     }

@@ -5,6 +5,9 @@ import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
+import javafx.stage.Stage;
+import main.java.Main;
+import main.java.model.AdminDAO;
 
 import java.io.IOException;
 
@@ -31,6 +34,8 @@ public class MainViewController {
     private MatchStatsViewController matchStatsViewController;
     @FXML
     private ReportsViewController reportsViewController;
+    @FXML
+    private PlayerAnalyticsFilterController playerAnalyticsFilterController;
     @FXML
     private AnchorPane ap, lowerap;
     @FXML
@@ -122,6 +127,21 @@ public class MainViewController {
             reportsViewController.loadAllData();
         } else {
             throw new IllegalStateException("ReportsViewController was not properly initialized");
+        }
+    }
+
+    @FXML
+    void logout(MouseEvent event) {
+        AdminDAO.getInstance().logout();
+        // Close the current window
+        Stage stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
+        stage.close();
+
+        // Restart application
+        try {
+            new Main().start(new Stage());
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 

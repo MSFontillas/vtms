@@ -60,4 +60,23 @@ public class MatchStats {
 
     public String getTeamBName() { return teamBName; }
     public void setTeamBName(String teamBName) { this.teamBName = teamBName; }
+
+    public void validateInput() throws IllegalArgumentException {
+        if (matchID <= 0) {
+            throw new IllegalArgumentException("Invalid match ID");
+        }
+        if (playerID <= 0) {
+            throw new IllegalArgumentException("Invalid player ID");
+        }
+        if (kills < 0) {
+            throw new IllegalArgumentException("Kills cannot be negative");
+        }
+        if (deaths < 0) {
+            throw new IllegalArgumentException("Deaths cannot be negative");
+        }
+        if (assists < 0) {
+            throw new IllegalArgumentException("Assists cannot be negative");
+        }
+    }
+
 }

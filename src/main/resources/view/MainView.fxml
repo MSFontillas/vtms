@@ -18,6 +18,7 @@
          <Button onMouseClicked="#matches" styleClass="menu-button" text="MATCHES" />
          <Button onMouseClicked="#match_stats" styleClass="menu-button" text="STATS" />
          <Button onMouseClicked="#reports" styleClass="menu-button" text="REPORTS" />
+         <Button onMouseClicked="#logout" styleClass="menu-button" text="LOGOUT" />
       </VBox>
    </left>
    <center>

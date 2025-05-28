@@ -171,30 +171,29 @@ public class MatchStatsDAO {
         
         // Add player name condition if provided
         if (!playerName.isEmpty()) {
-            queryBuilder.append(" AND (LOWER(p.playerName) LIKE LOWER(?) OR LOWER(p.ign) LIKE LOWER(?))");
+            queryBuilder.append(" AND (LOWER(p.playerName) LIKE LOWER(?) OR LOWER(p.ign) LIKE LOWER(?) OR ");
+            queryBuilder.append("LOWER(CONCAT(p.playerName, ' (', p.ign, ')')) LIKE LOWER(?))");
+            params.add("%" + playerName + "%");
             params.add("%" + playerName + "%");
             params.add("%" + playerName + "%");
         }
         
-        // Add kills condition if provided
+        // Rest of the conditions remain the same
         if (!kills.isEmpty()) {
             queryBuilder.append(" AND ms.kills = ?");
             params.add(Integer.parseInt(kills));
         }
         
-        // Add deaths condition if provided
         if (!deaths.isEmpty()) {
             queryBuilder.append(" AND ms.deaths = ?");
             params.add(Integer.parseInt(deaths));
         }
         
-        // Add assists condition if provided
         if (!assists.isEmpty()) {
             queryBuilder.append(" AND ms.assists = ?");
             params.add(Integer.parseInt(assists));
         }
         
-        // Add MVP condition if provided
         if (mvp != null) {
             queryBuilder.append(" AND ms.mvp = ?");
             params.add(mvp);

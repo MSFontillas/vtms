@@ -10,6 +10,7 @@ import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 import java.util.List;
+import java.util.Arrays;
 import java.util.stream.Collectors;
 
 import main.java.model.Player;
@@ -244,17 +245,40 @@ public class PlayerMenuController implements Initializable {
     }
     
     private void validateFields() throws ValidationException {
-        if (nameField.getText().trim().isEmpty()) {
+        String playerName = nameField.getText().trim();
+        String ign = ignField.getText().trim();
+        String role = roleField.getText().trim();
+        String team = teamField.getText().trim();
+
+        // Required fields validation
+        if (playerName.isEmpty()) {
             throw new ValidationException("Player name is required");
         }
-        if (ignField.getText().trim().isEmpty()) {
+        if (ign.isEmpty()) {
             throw new ValidationException("IGN is required");
         }
-        if (roleField.getText().trim().isEmpty()) {
+        if (role.isEmpty()) {
             throw new ValidationException("Role is required");
         }
-        if (teamField.getText().trim().isEmpty()) {
+        if (team.isEmpty()) {
             throw new ValidationException("Team is required");
+        }
+
+        // Length validations
+        if (playerName.length() < 2 || playerName.length() > 50) {
+            throw new ValidationException("Player name must be between 2 and 50 characters");
+        }
+        if (ign.length() < 2 || ign.length() > 30) {
+            throw new ValidationException("IGN must be between 2 and 30 characters");
+        }
+        if (role.length() > 20) {
+            throw new ValidationException("Role cannot exceed 20 characters");
+        }
+        
+        // Role validation (assuming specific roles are allowed)
+        List<String> validRoles = Arrays.asList("Duelist", "Initiator", "Controller", "Sentinel", "Flex");
+        if (!validRoles.contains(role)) {
+            throw new ValidationException("Invalid role. Must be one of: " + String.join(", ", validRoles));
         }
     }
 }
