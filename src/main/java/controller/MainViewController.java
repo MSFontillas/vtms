@@ -6,7 +6,7 @@ import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
-import main.Main;
+import main.java.Main;
 import main.java.model.AdminDAO;
 
 import java.io.IOException;
