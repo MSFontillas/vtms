@@ -1,4 +1,4 @@
-module your.module.name {
+module main.java {
     requires javafx.controls;
     requires javafx.fxml;
     requires javafx.graphics;
@@ -13,7 +13,4 @@ module your.module.name {
     opens main.java.model to javafx.base;
     opens main.java.controller to javafx.base, javafx.fxml;
     opens main.java.util to javafx.base, javafx.fxml;
-
-    // Add these lines to fix the ControlsFX access issue
-    requires javafx.base;
 }

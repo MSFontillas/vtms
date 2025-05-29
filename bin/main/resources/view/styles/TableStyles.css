@@ -1,0 +1,59 @@
+.table-view {
+    -fx-background-color: #282f38;
+    -fx-padding: 20px;
+}
+
+.table-view .column-header,
+.table-view .table-cell {
+    -fx-alignment: center;
+    -fx-padding: 5px;  /* Add some padding to cells */
+}
+
+.table-view .column-header {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+}
+
+.table-view .column-header-background {
+    -fx-background-color: #ba3a46;
+    -fx-background-radius: 10 10 0 0;
+    -fx-padding: 5px;  /* Add padding to header */
+}
+
+/* Header styling */
+.table-view .column-header-background {
+    -fx-background-color: #ba3a46;
+    -fx-background-radius: 10 10 0 0;
+}
+
+.table-view .column-header,
+.table-view .table-cell {
+    -fx-alignment: center;
+    -fx-padding: 5px;
+    -fx-text-fill: white;
+}
+
+/* Row styling */
+.table-row-cell {
+    -fx-background-color: #282f38;
+    -fx-border-color: transparent;
+    -fx-text-fill: white;
+}
+
+.table-row-cell:odd {
+    -fx-background-color: #111823;
+    -fx-border-color: transparent;
+    -fx-text-fill: white;
+}
+
+/* Selected row styling */
+.table-row-cell:selected {
+    -fx-background-color: #ff4654;
+    -fx-text-fill: white;
+}
+
+/* Style the scroll bars */
+.table-view .scroll-bar:horizontal,
+.table-view .scroll-bar:vertical {
+    -fx-background-color: transparent;
+}

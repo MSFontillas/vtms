@@ -1,0 +1,6 @@
+.anchor-pane {
+    -fx-background-color: #111823;  /* Add your desired background color */
+    -fx-background-radius: 4;
+    -fx-border-radius: 4;
+    -fx-border-color: transparent;  /* Optional: add if you want a border */
+}

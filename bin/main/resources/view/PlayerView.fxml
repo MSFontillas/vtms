@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.BorderPane?>
+
+<BorderPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.java.controller.PlayerViewController">
+    <center>
+        <TableView fx:id="playerTable" stylesheets="@styles/TableStyles.css" BorderPane.alignment="CENTER">
+            <columns>
+                <TableColumn fx:id="playerID" text="ID" />
+                <TableColumn fx:id="playerName" minWidth="200.0" text="Name" />
+                <TableColumn fx:id="ign" minWidth="200.0" text="IGN" />
+                <TableColumn fx:id="role" minWidth="100.0" text="Role" />
+                <TableColumn fx:id="teamID" minWidth="200.0" text="Team" />
+            </columns>
+            <columnResizePolicy>
+                <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+            </columnResizePolicy>
+        </TableView>
+    </center>
+</BorderPane>

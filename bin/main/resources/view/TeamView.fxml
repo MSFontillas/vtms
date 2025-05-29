@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.BorderPane?>
+
+<BorderPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.java.controller.TeamViewController">
+    <center>
+        <TableView fx:id="teamTable" stylesheets="@styles/TableStyles.css" BorderPane.alignment="CENTER">
+            <columns>
+                <TableColumn fx:id="teamID" text="ID" />
+                <TableColumn fx:id="teamName" minWidth="200.0" text="Team Name" />
+                <TableColumn fx:id="coach" minWidth="200.0" text="Coach" />
+                <TableColumn fx:id="region" minWidth="100.0" text="Region" />
+            </columns>
+            <columnResizePolicy>
+                <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+            </columnResizePolicy>
+        </TableView>
+    </center>
+</BorderPane>

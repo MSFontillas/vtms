@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Point3D?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.VBox?>
+
+<BorderPane fx:id="bp" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1600.0" style="-fx-background-color: #282f38;" stylesheets="@styles/MenuButtonStyles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.java.controller.MainViewController">
+   <left>
+      <VBox alignment="CENTER" prefWidth="400.0" style="-fx-background-color: #111823;" BorderPane.alignment="CENTER">
+         <Button onMouseClicked="#home" styleClass="menu-button" text="HOME" />
+         <Button onMouseClicked="#players" styleClass="menu-button" text="PLAYERS" />
+         <Button onMouseClicked="#teams" styleClass="menu-button" text="TEAMS" />
+         <Button onMouseClicked="#maps" styleClass="menu-button" text="MAPS" />
+         <Button onMouseClicked="#matches" styleClass="menu-button" text="MATCHES" />
+         <Button onMouseClicked="#match_stats" styleClass="menu-button" text="STATS" />
+         <Button onMouseClicked="#reports" styleClass="menu-button" text="REPORTS" />
+         <Button onMouseClicked="#logout" styleClass="menu-button" text="LOGOUT" />
+      </VBox>
+   </left>
+   <center>
+      <BorderPane fx:id="innerbp" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" BorderPane.alignment="CENTER">
+         <center>
+            <AnchorPane fx:id="ap" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" BorderPane.alignment="CENTER">
+               <rotationAxis>
+                  <Point3D />
+               </rotationAxis>
+               <ImageView fitHeight="600.0" fitWidth="600.0" layoutX="307.0" layoutY="143.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true">
+                  <rotationAxis>
+                     <Point3D />
+                  </rotationAxis>
+                  <Image url="@../images/vtms_logo.png" />
+               </ImageView>
+            </AnchorPane>
+         </center>
+         <bottom>
+            <AnchorPane fx:id="lowerap" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" BorderPane.alignment="CENTER" />
+         </bottom>
+      </BorderPane>
+   </center>
+</BorderPane>
