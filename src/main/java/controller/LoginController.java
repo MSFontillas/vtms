@@ -20,8 +20,17 @@ public class LoginController {
 
     @FXML
     private void handleLogin() {
-        String username = usernameField.getText();
+        String username = usernameField.getText().trim();
         String password = passwordField.getText();
+
+        if (username.isEmpty() || password.isEmpty()) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Login Failed");
+            alert.setHeaderText(null);
+            alert.setContentText("Please enter both username and password");
+            alert.showAndWait();
+            return;
+        }
 
         if (AdminDAO.getInstance().login(username, password)) {
             authenticated = true;

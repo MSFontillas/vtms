@@ -103,7 +103,6 @@ public class ReportsViewController implements Initializable {
             loadTeamPerformance();
         } catch (SQLException e) {
             e.printStackTrace();
-            // Handle error appropriately
         }
     }
 

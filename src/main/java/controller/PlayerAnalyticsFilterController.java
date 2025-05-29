@@ -5,7 +5,14 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import main.java.model.PlayerAnalytics;
+import main.java.model.PlayerDAO;
+import main.java.model.TeamDAO;
+import main.java.util.AutoCompleteUtil;
+
 import java.net.URL;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 import java.util.function.Predicate;
 
@@ -18,7 +25,29 @@ public class PlayerAnalyticsFilterController implements Initializable {
     private ReportsViewController reportsViewController;
 
     @Override
-    public void initialize(URL url, ResourceBundle rb) {}
+    public void initialize(URL url, ResourceBundle rb) {
+        // Prepare suggestions
+        List<String> playerSuggestions = new ArrayList<>();
+        List<String> teamSuggestions = new ArrayList<>();
+        List<String> roleSuggestions = List.of("Duelist", "Initiator", "Controller", "Sentinel", "Flex");
+
+        try {
+            PlayerDAO playerDAO = new PlayerDAO();
+            playerDAO.getAllPlayers().forEach(p -> {
+                playerSuggestions.add(p.getPlayerName());
+                playerSuggestions.add(p.getIgn());
+            });
+
+            TeamDAO teamDAO = new TeamDAO();
+            teamDAO.getAllTeams().forEach(t -> teamSuggestions.add(t.getTeamName()));
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        AutoCompleteUtil.setupAutoComplete(playerField, playerSuggestions);
+        AutoCompleteUtil.setupAutoComplete(teamField, teamSuggestions);
+        AutoCompleteUtil.setupAutoComplete(roleField, roleSuggestions);
+    }
 
     public void setReportsViewController(ReportsViewController controller) {
         this.reportsViewController = controller;

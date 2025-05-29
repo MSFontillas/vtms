@@ -50,14 +50,14 @@ public class MapMenuController implements Initializable {
         smb.setDisable(true);
 
         // Configure the main button action (Search)
-        smb.setOnAction(e -> handleSearch());
+        smb.setOnAction(_ -> handleSearch());
 
         // Configure menu items
         for (MenuItem item : smb.getItems()) {
             switch (item.getText()) {
-                case "Add" -> item.setOnAction(e -> handleAdd());
-                case "Update" -> item.setOnAction(e -> handleUpdate());
-                case "Delete" -> item.setOnAction(e -> handleDelete());
+                case "Add" -> item.setOnAction(_ -> handleAdd());
+                case "Update" -> item.setOnAction(_ -> handleUpdate());
+                case "Delete" -> item.setOnAction(_ -> handleDelete());
             }
         }
     }
@@ -68,7 +68,7 @@ public class MapMenuController implements Initializable {
         
         // Set up a table selection listener
         mapViewController.getMapTable().getSelectionModel().selectedItemProperty().addListener(
-            (obs, oldSelection, newSelection) -> {
+            (_, _, newSelection) -> {
                 if (newSelection != null) {
                     // Fill text field with selected map data
                     nameField.setText(newSelection.getMapName());

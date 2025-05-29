@@ -47,13 +47,12 @@ public class MatchMenuController implements Initializable {
         alertUtil = new AlertUtil();
 
         try {
-            // Get all team names for autocomplete
+
             List<String> teamNames = teamDAO.getAllTeams()
                     .stream()
                     .map(Team::getTeamName)
                     .collect(Collectors.toList());
 
-            // Get all map names
             List<String> mapNames = mapDAO.getAllMaps()
                     .stream()
                     .map(Map::getMapName)
@@ -80,14 +79,14 @@ public class MatchMenuController implements Initializable {
         smb.setDisable(true);
         
         // Configure the main button action (Search)
-        smb.setOnAction(e -> handleSearch());
+        smb.setOnAction(_ -> handleSearch());
         
         // Configure menu items
         for (MenuItem item : smb.getItems()) {
             switch (item.getText()) {
-                case "Add" -> item.setOnAction(e -> handleAdd());
-                case "Update" -> item.setOnAction(e -> handleUpdate());
-                case "Delete" -> item.setOnAction(e -> handleDelete());
+                case "Add" -> item.setOnAction(_ -> handleAdd());
+                case "Update" -> item.setOnAction(_ -> handleUpdate());
+                case "Delete" -> item.setOnAction(_ -> handleDelete());
             }
         }
     }
@@ -98,7 +97,7 @@ public class MatchMenuController implements Initializable {
         
         // Set up a table selection listener
         matchViewController.getMatchTable().getSelectionModel().selectedItemProperty().addListener(
-            (obs, oldSelection, newSelection) -> {
+            (_, _, newSelection) -> {
                 if (newSelection != null) {
                     // Fill fields with selected match data
                     teamAField.setText(newSelection.getTeamAName());
@@ -253,7 +252,6 @@ public class MatchMenuController implements Initializable {
         String teamA = teamAField.getText().trim();
         String teamB = teamBField.getText().trim();
         String winner = winnerField.getText().trim();
-        String map = mapField.getText().trim();
 
         // Basic required field validation
         if (teamA.isEmpty()) {
